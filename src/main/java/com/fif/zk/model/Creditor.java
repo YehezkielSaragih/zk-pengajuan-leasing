@@ -2,6 +2,7 @@ package com.fif.zk.model;
 
 public class Creditor {
 
+    private Integer id;
     private String name;
     private Integer age;
     private Integer income;
@@ -11,7 +12,8 @@ public class Creditor {
 
     public Creditor() {}
 
-    public Creditor(String name, Integer age, Integer income, Integer downPayment, Integer loanAmount, String status) {
+    public Creditor(String name, Integer age, Integer income,
+                    Integer downPayment, Integer loanAmount, String status) {
         this.name = name;
         this.age = age;
         this.income = income;
@@ -19,6 +21,9 @@ public class Creditor {
         this.loanAmount = loanAmount;
         this.status = status;
     }
+
+    public Integer getId() { return id; }
+    public void setId(Integer id) { this.id = id; }
 
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }

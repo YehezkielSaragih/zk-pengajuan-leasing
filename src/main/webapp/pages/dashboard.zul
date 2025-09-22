@@ -14,21 +14,31 @@
 
             <listbox model="@bind(vm.creditors)" width="100%" mold="paging" pageSize="5" sclass="listbox">
                 <listhead class="listhead">
-                    <listheader class="listheader" label="Name"/>
-                    <listheader class="listheader" label="Age"/>
-                    <listheader class="listheader" label="Income"/>
-                    <listheader class="listheader" label="Down Payment"/>
-                    <listheader class="listheader" label="Loan Amount"/>
-                    <listheader class="listheader" label="Status"/>
+                    <listheader label="ID"/>
+                    <listheader label="Name"/>
+                    <listheader label="Age"/>
+                    <listheader label="Income"/>
+                    <listheader label="Down Payment"/>
+                    <listheader label="Loan Amount"/>
+                    <listheader label="Status"/>
+                    <listheader label="Action"/>
                 </listhead>
+
                 <template name="model">
-                    <listitem class="listitem">
-                        <listcell class="listcell" label="@load(each.name)"/>
-                        <listcell class="listcell" label="@load(each.age)"/>
-                        <listcell class="listcell" label="@load(each.income)"/>
-                        <listcell class="listcell" label="@load(each.downPayment)"/>
-                        <listcell class="listcell" label="@load(each.loanAmount)"/>
-                        <listcell class="listcell" label="@load(each.status)"/>
+                    <listitem>
+                        <listcell label="@load(each.id)"/>
+                        <listcell label="@load(each.name)"/>
+                        <listcell label="@load(each.age)"/>
+                        <listcell label="@load(each.income)"/>
+                        <listcell label="@load(each.downPayment)"/>
+                        <listcell label="@load(each.loanAmount)"/>
+                        <listcell label="@load(each.status)"/>
+                        <listcell>
+                            <hlayout spacing="5px">
+                                <button label="Edit" onClick="@command('editCreditor', id=each.id)"/>
+                                <button label="Delete" onClick="@command('deleteCreditor', id=each.id)"/>
+                            </hlayout>
+                        </listcell>
                     </listitem>
                 </template>
             </listbox>
