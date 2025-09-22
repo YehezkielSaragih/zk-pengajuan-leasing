@@ -1,0 +1,95 @@
+/* detail.css */
+
+/* Body/Window background */
+.zk-window {
+    background: #f0f2f5; /* warna lembut */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* full viewport */
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Card container */
+.detail-card {
+    width: 95%;
+    max-width: 750px;
+    padding: 35px 40px;
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+    box-sizing: border-box;
+}
+
+/* Title label */
+.detail-card .title-label {
+    font-size: 26px;
+    font-weight: 700;
+    color: #4a90e2;
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+/* Form row styling */
+.detail-card grid rows row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 18px;
+}
+
+.detail-card grid rows row label:first-child {
+    width: 160px;
+    font-weight: 600;
+    color: #555;
+}
+
+.detail-card grid rows row label:last-child,
+.detail-card grid rows row combobox {
+    flex: 1;
+    padding: 8px 12px;
+    background: #f5f5f5;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    color: #222;
+    font-size: 14px;
+}
+
+/* Combobox read-only */
+.detail-card grid rows row combobox[readonly] {
+    background: #f5f5f5;
+    color: #555;
+    cursor: default;
+}
+
+/* Buttons container */
+.detail-card hlayout.buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    gap: 20px;
+}
+
+/* Modern buttons with icon support */
+.detail-card button {
+    padding: 12px 26px;
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: 14px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: white;
+    background: linear-gradient(135deg, #4a90e2, #357ABD);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.detail-card button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+}

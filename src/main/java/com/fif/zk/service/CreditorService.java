@@ -28,17 +28,17 @@ public class CreditorService {
         creditors.removeIf(c -> c.getId() == id);
     }
 
-    public Creditor findById(int id) {
+    public Creditor getCreditorById(int id) {
         return creditors.stream()
-                .filter(c -> c.getId() == id)
+                .filter(c -> c.getId().equals(id))
                 .findFirst()
                 .orElse(null);
     }
 
-    public void updateCreditor(Creditor updatedCreditor) {
+    public void updateCreditor(Creditor updated) {
         for (int i = 0; i < creditors.size(); i++) {
-            if (creditors.get(i).getId().equals(updatedCreditor.getId())) {
-                creditors.set(i, updatedCreditor);
+            if (creditors.get(i).getId().equals(updated.getId())) {
+                creditors.set(i, updated);
                 break;
             }
         }

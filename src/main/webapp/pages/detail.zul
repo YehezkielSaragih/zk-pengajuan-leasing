@@ -1,0 +1,62 @@
+<?page title="Creditor Detail" contentType="text/html;charset=UTF-8"?>
+<zk xmlns="http://www.zkoss.org/2005/zul">
+
+    <style src="/css/style.css"/>
+    <style src="/css/layout.css"/>
+    <style src="/css/detail.css"/>
+
+    <window apply="org.zkoss.bind.BindComposer"
+            viewModel="@id('vm') @init('com.fif.zk.viewmodel.DetailViewModel')"
+            border="none"
+            width="100%"
+            height="100%"
+            sclass="detail-card">
+
+        <vlayout spacing="15px">
+            <label value="Creditor Detail" sclass="title-label"/>
+
+            <grid>
+                <rows>
+                    <row>
+                        <label value="ID:"/>
+                        <label value="@load(vm.creditor.id)"/>
+                    </row>
+                    <row>
+                        <label value="Name:"/>
+                        <label value="@load(vm.creditor.name)"/>
+                    </row>
+                    <row>
+                        <label value="Age:"/>
+                        <label value="@load(vm.creditor.age)"/>
+                    </row>
+                    <row>
+                        <label value="Income:"/>
+                        <label value="@load(vm.creditor.income)"/>
+                    </row>
+                    <row>
+                        <label value="Down Payment:"/>
+                        <label value="@load(vm.creditor.downPayment)"/>
+                    </row>
+                    <row>
+                        <label value="Loan Amount:"/>
+                        <label value="@load(vm.creditor.loanAmount)"/>
+                    </row>
+                    <row>
+                        <label value="Status:"/>
+                        <combobox value="@bind(vm.creditor.status)" readonly="true">
+                            <comboitem label="Pending"/>
+                            <comboitem label="Approved"/>
+                            <comboitem label="Rejected"/>
+                        </combobox>
+                    </row>
+                </rows>
+            </grid>
+
+            <hlayout spacing="15px" sclass="buttons">
+                <button label="Save" onClick="@command('update')"/>
+                <button label="Back" onClick="@command('back')"/>
+            </hlayout>
+        </vlayout>
+
+    </window>
+</zk>

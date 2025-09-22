@@ -9,16 +9,18 @@
             viewModel="@id('vm') @init('com.fif.zk.viewmodel.DashboardViewModel')"
             border="none" width="100%" height="100%">
 
-        <vlayout spacing="10px" style="padding:15px;">
-            <label value="List of Creditors" style="font-weight:bold; font-size:18px; color:#4a90e2;"/>
+        <vlayout sclass="dashboard-container">
+            <label value="List of Creditors" sclass="dashboard-title"/>
 
-            <listbox model="@bind(vm.creditors)" width="100%" mold="paging" pageSize="5" sclass="listbox">
+            <!-- Filter -->
+            <textbox placeholder="Search by ID, Name, or Status..." sclass="filter-box"
+                     value="@bind(vm.filterText) @command('filter')"/>
+
+            <!-- Listbox -->
+            <listbox model="@bind(vm.filteredCreditors)" width="100%" mold="paging" pageSize="5" sclass="listbox">
                 <listhead class="listhead">
                     <listheader label="ID"/>
                     <listheader label="Name"/>
-                    <listheader label="Age"/>
-                    <listheader label="Income"/>
-                    <listheader label="Down Payment"/>
                     <listheader label="Loan Amount"/>
                     <listheader label="Status"/>
                     <listheader label="Action"/>
@@ -28,15 +30,17 @@
                     <listitem>
                         <listcell label="@load(each.id)"/>
                         <listcell label="@load(each.name)"/>
-                        <listcell label="@load(each.age)"/>
-                        <listcell label="@load(each.income)"/>
-                        <listcell label="@load(each.downPayment)"/>
                         <listcell label="@load(each.loanAmount)"/>
-                        <listcell label="@load(each.status)"/>
+                        <listcell>
+                            <label value="@load(each.status)" sclass="status-badge
+                                ${each.status == 'Pending' ? 'pending' :
+                                  each.status == 'Approved' ? 'approved' :
+                                  each.status == 'Rejected' ? 'rejected' : 'survey'}"/>
+                        </listcell>
                         <listcell>
                             <hlayout spacing="5px">
-                                <button label="Edit" onClick="@command('editCreditor', id=each.id)"/>
-                                <button label="Delete" onClick="@command('deleteCreditor', id=each.id)"/>
+                                <button label="Edit" sclass="action-button" onClick="@command('editCreditor', id=each.id)"/>
+                                <button label="Delete" sclass="action-button" onClick="@command('deleteCreditor', id=each.id)"/>
                             </hlayout>
                         </listcell>
                     </listitem>
