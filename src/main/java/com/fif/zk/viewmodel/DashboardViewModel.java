@@ -14,33 +14,39 @@ import java.util.stream.Collectors;
 public class DashboardViewModel {
 
     private String filterText = "";
+    private String filterStatus = "All";
     private List<Creditor> filteredCreditors;
 
     public DashboardViewModel() {
-        filteredCreditors = new ArrayList<>(CreditorService.getInstance().getCreditors());
+        filteredCreditors = CreditorService.getInstance().getCreditors();
     }
 
     public List<Creditor> getFilteredCreditors() {
         return filteredCreditors;
     }
 
-    public String getFilterText() {
-        return filterText;
-    }
+    public String getFilterText() { return filterText; }
+    public void setFilterText(String filterText) { this.filterText = filterText; }
 
-    public void setFilterText(String filterText) {
-        this.filterText = filterText;
-    }
+    public String getFilterStatus() { return filterStatus; }
+    public void setFilterStatus(String filterStatus) { this.filterStatus = filterStatus; }
 
     @Command
     @NotifyChange("filteredCreditors")
     public void filter() {
-        String lowerFilter = filterText.toLowerCase().trim();
         filteredCreditors = CreditorService.getInstance().getCreditors().stream()
-                .filter(c -> String.valueOf(c.getId()).contains(lowerFilter)
-                        || c.getName().toLowerCase().contains(lowerFilter)
-                        || c.getStatus().toLowerCase().contains(lowerFilter))
+                .filter(c -> (filterText.isEmpty() || c.getName().toLowerCase().contains(filterText.toLowerCase())
+                        || String.valueOf(c.getId()).contains(filterText)))
+                .filter(c -> filterStatus.equals("All") || c.getStatus().equalsIgnoreCase(filterStatus))
                 .collect(Collectors.toList());
+    }
+
+    @Command
+    @NotifyChange({"filteredCreditors", "filterText", "filterStatus"})
+    public void clearFilter() {
+        filterText = "";
+        filterStatus = "All";
+        filteredCreditors = CreditorService.getInstance().getCreditors();
     }
 
     @Command
@@ -52,6 +58,6 @@ public class DashboardViewModel {
     @NotifyChange({"filteredCreditors", "filterText"})
     public void deleteCreditor(@BindingParam("id") int id) {
         CreditorService.getInstance().deleteCreditor(id);
-        filter(); // refresh filtered list setelah delete
+        filter();
     }
 }
