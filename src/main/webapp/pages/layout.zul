@@ -14,9 +14,9 @@
             <!-- sidebar -->
             <west width="200px" style="background:#f4f4f4; padding:10px;">
                 <vlayout spacing="10px">
-                    <a href="layout.zul?page=home.zul" label="📄 Data Kreditur"/>
-                    <a href="layout.zul?page=inputForm.zul" label="➕ Tambah Kreditur"/>
-                    <a href="login.zul" label="🚪 Logout"/>
+                    <a href="/pages/layout.zul?page=/pages/dashboard.zul" label="📄 Data Kreditur"/>
+                    <a href="/pages/layout.zul?page=/pages/form.zul" label="➕ Tambah Kreditur"/>
+                    <a href="/pages/login.zul" label="🚪 Logout"/>
                 </vlayout>
             </west>
 
