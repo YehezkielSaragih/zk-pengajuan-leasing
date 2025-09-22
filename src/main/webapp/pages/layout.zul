@@ -1,0 +1,29 @@
+<?page title="Main Layout" contentType="text/html;charset=UTF-8"?>
+<zk xmlns="http://www.zkoss.org/2005/zul">
+    <window apply="org.zkoss.bind.BindComposer"
+            viewModel="@id('vm') @init('com.fif.zk.viewmodel.LayoutViewModel"
+            border="none" width="100%" height="100%">
+
+        <borderlayout height="100%" width="100%">
+
+            <!-- header -->
+            <north height="50px" style="background:#1976d2; color:white; padding:10px;">
+                <label value="Aplikasi Kreditur" style="font-weight:bold; font-size:18px;"/>
+            </north>
+
+            <!-- sidebar -->
+            <west width="200px" style="background:#f4f4f4; padding:10px;">
+                <vlayout spacing="10px">
+                    <a href="layout.zul?page=home.zul" label="📄 Data Kreditur"/>
+                    <a href="layout.zul?page=inputForm.zul" label="➕ Tambah Kreditur"/>
+                    <a href="login.zul" label="🚪 Logout"/>
+                </vlayout>
+            </west>
+
+            <!-- konten -->
+            <center>
+                <include src="@load(vm.page)" mode="instant"/>
+            </center>
+        </borderlayout>
+    </window>
+</zk>

@@ -1,0 +1,34 @@
+<?page title="Input Data Kreditur" contentType="text/html;charset=UTF-8"?>
+<zk xmlns="http://www.zkoss.org/2005/zul">
+    <window apply="org.zkoss.bind.BindComposer"
+            viewModel="@id('vm') @init('com.fif.zk.viewmodel.CreditorViewModel"
+            border="none" width="100%" height="100%">
+
+        <vlayout spacing="10px" style="padding:20px;">
+            <grid>
+                <rows>
+                    <row>
+                        <label value="Nama Kreditur:"/>
+                        <textbox value="@bind(vm.nama)" width="250px" placeholder="Masukkan nama kreditur"/>
+                    </row>
+                    <row>
+                        <label value="Alamat:"/>
+                        <textbox value="@bind(vm.alamat)" width="250px" placeholder="Masukkan alamat"/>
+                    </row>
+                    <row>
+                        <label value="Nomor Telepon:"/>
+                        <textbox value="@bind(vm.noTelepon)" width="250px" placeholder="08xxxxxxxx"/>
+                    </row>
+                    <row>
+                        <label value="Jumlah Pinjaman:"/>
+                        <doublebox value="@bind(vm.jumlahPinjaman)" width="250px" placeholder="Contoh: 5000000"/>
+                    </row>
+                </rows>
+            </grid>
+            <hlayout>
+                <button label="Simpan" onClick="@command('simpan')" width="100px"/>
+                <!--                <button label="Reset" onClick="@command('reset')" width="100px"/>-->
+            </hlayout>
+        </vlayout>
+    </window>
+</zk>
