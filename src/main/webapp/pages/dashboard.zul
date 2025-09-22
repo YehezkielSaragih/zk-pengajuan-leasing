@@ -1,7 +1,7 @@
 <?page title="Data Kreditur" contentType="text/html;charset=UTF-8"?>
 <zk xmlns="http://www.zkoss.org/2005/zul">
     <window apply="org.zkoss.bind.BindComposer"
-            viewModel="@id('vm') @init('com.fif.zk.viewmodel.DashboardViewModel"
+            viewModel="@id('vm') @init('com.fif.zk.viewmodel.DashboardViewModel')"
             border="none" width="100%" height="100%">
 
         <vlayout spacing="10px" style="padding:15px;">

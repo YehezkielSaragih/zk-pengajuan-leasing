@@ -3,7 +3,7 @@
     <vlayout hflex="1" vflex="1" style="display:flex; justify-content:center; align-items:center; background:#f0f2f5;">
         <window title="🔐 Login" width="500px" border="normal" closable="false"
                 apply="org.zkoss.bind.BindComposer"
-                viewModel="@id('vm') @init('com.fif.zk.viewmodel.LoginViewModel"
+                viewModel="@id('vm') @init('com.fif.zk.viewmodel.LoginViewModel')"
                 style="border-radius:12px; box-shadow:0 4px 15px rgba(0,0,0,0.2); background:white;">
 
             <vlayout spacing="15px" style="padding:25px;">
