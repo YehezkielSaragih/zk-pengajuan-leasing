@@ -8,31 +8,35 @@ import org.zkoss.zk.ui.Executions;
 public class FormViewModel {
 
     private String name;
-    private int age;
-    private double income;
-    private double downPayment;
-    private double loanAmount;
+    private Integer age;
+    private Integer income;
+    private Integer downPayment;
+    private Integer loanAmount;
+    private String status;
 
     // Getters & Setters
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
 
-    public int getAge() { return age; }
-    public void setAge(int age) { this.age = age; }
+    public Integer getAge() { return age; }
+    public void setAge(Integer age) { this.age = age; }
 
-    public double getIncome() { return income; }
-    public void setIncome(double income) { this.income = income; }
+    public Integer getIncome() { return income; }
+    public void setIncome(Integer income) { this.income = income; }
 
-    public double getDownPayment() { return downPayment; }
-    public void setDownPayment(double downPayment) { this.downPayment = downPayment; }
+    public Integer getDownPayment() { return downPayment; }
+    public void setDownPayment(Integer downPayment) { this.downPayment = downPayment; }
 
-    public double getLoanAmount() { return loanAmount; }
-    public void setLoanAmount(double loanAmount) { this.loanAmount = loanAmount; }
+    public Integer getLoanAmount() { return loanAmount; }
+    public void setLoanAmount(Integer loanAmount) { this.loanAmount = loanAmount; }
+
+    public String getStatus() { return status; }
+    public void setStatus(String status) { this.status = status; }
 
     @Command
     public void save() {
         CreditorService.getInstance().addCreditor(
-                new Creditor(name, age, income, downPayment, loanAmount)
+                new Creditor(name, age, income, downPayment, loanAmount, "Pending")
         );
         Executions.sendRedirect("layout.zul?page=dashboard.zul");
     }

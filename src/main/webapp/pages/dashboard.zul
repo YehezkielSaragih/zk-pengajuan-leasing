@@ -19,6 +19,7 @@
                     <listheader class="listheader" label="Income"/>
                     <listheader class="listheader" label="Down Payment"/>
                     <listheader class="listheader" label="Loan Amount"/>
+                    <listheader class="listheader" label="Status"/>
                 </listhead>
                 <template name="model">
                     <listitem class="listitem">
@@ -27,6 +28,7 @@
                         <listcell class="listcell" label="@load(each.income)"/>
                         <listcell class="listcell" label="@load(each.downPayment)"/>
                         <listcell class="listcell" label="@load(each.loanAmount)"/>
+                        <listcell class="listcell" label="@load(each.status)"/>
                     </listitem>
                 </template>
             </listbox>
