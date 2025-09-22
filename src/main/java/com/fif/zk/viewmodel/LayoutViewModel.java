@@ -11,9 +11,14 @@ public class LayoutViewModel {
         // Ambil parameter ?page= dari URL
         String p = Executions.getCurrent().getParameter("page");
         if (p != null && !p.isEmpty()) {
-            page = p;
+            // Tambahkan prefix /pages/ jika belum ada
+            if (!p.startsWith("/pages/")) {
+                page = "/pages/" + p;
+            } else {
+                page = p;
+            }
         } else {
-            page = "home.zul"; // default halaman
+            page = "/pages/dashboard.zul"; // default halaman
         }
     }
 

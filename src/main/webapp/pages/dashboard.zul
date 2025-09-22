@@ -1,25 +1,32 @@
-<?page title="Data Kreditur" contentType="text/html;charset=UTF-8"?>
+<?page title="Creditor Data" contentType="text/html;charset=UTF-8"?>
 <zk xmlns="http://www.zkoss.org/2005/zul">
+
+    <style src="/css/style.css"/>
+    <style src="/css/layout.css"/>
+    <style src="/css/dashboard.css"/>
+
     <window apply="org.zkoss.bind.BindComposer"
             viewModel="@id('vm') @init('com.fif.zk.viewmodel.DashboardViewModel')"
             border="none" width="100%" height="100%">
 
         <vlayout spacing="10px" style="padding:15px;">
-            <label value="Daftar Kreditur" style="font-weight:bold; font-size:16px;"/>
+            <label value="List of Creditors" style="font-weight:bold; font-size:18px; color:#4a90e2;"/>
 
-            <listbox model="@bind(vm.daftarKreditur)" width="100%" mold="paging" pageSize="5">
-                <listhead>
-                    <listheader label="Nama"/>
-                    <listheader label="Alamat"/>
-                    <listheader label="No Telepon"/>
-                    <listheader label="Jumlah Pinjaman"/>
+            <listbox model="@bind(vm.creditors)" width="100%" mold="paging" pageSize="5" sclass="listbox">
+                <listhead class="listhead">
+                    <listheader class="listheader" label="Name"/>
+                    <listheader class="listheader" label="Age"/>
+                    <listheader class="listheader" label="Income"/>
+                    <listheader class="listheader" label="Down Payment"/>
+                    <listheader class="listheader" label="Loan Amount"/>
                 </listhead>
                 <template name="model">
-                    <listitem>
-                        <listcell label="@load(each.nama)"/>
-                        <listcell label="@load(each.alamat)"/>
-                        <listcell label="@load(each.noTelepon)"/>
-                        <listcell label="@load(each.jumlahPinjaman)"/>
+                    <listitem class="listitem">
+                        <listcell class="listcell" label="@load(each.name)"/>
+                        <listcell class="listcell" label="@load(each.age)"/>
+                        <listcell class="listcell" label="@load(each.income)"/>
+                        <listcell class="listcell" label="@load(each.downPayment)"/>
+                        <listcell class="listcell" label="@load(each.loanAmount)"/>
                     </listitem>
                 </template>
             </listbox>

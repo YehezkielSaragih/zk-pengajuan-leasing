@@ -1,33 +1,44 @@
-<?page title="Input Data Kreditur" contentType="text/html;charset=UTF-8"?>
+<?page title="Input Creditor Data" contentType="text/html;charset=UTF-8"?>
 <zk xmlns="http://www.zkoss.org/2005/zul">
+
+    <style src="/css/style.css"/>
+    <style src="/css/layout.css"/>
+    <style src="/css/form.css"/>
+
     <window apply="org.zkoss.bind.BindComposer"
-            viewModel="@id('vm') @init('com.fif.zk.viewmodel.CreditorViewModel')"
+            viewModel="@id('vm') @init('com.fif.zk.viewmodel.FormViewModel')"
             border="none" width="100%" height="100%">
 
-        <vlayout spacing="10px" style="padding:20px;">
+        <vlayout spacing="15px" style="padding:20px;">
+            <label value="Input Creditor Data" style="font-weight:bold; font-size:18px; color:#4a90e2;"/>
+
             <grid>
                 <rows>
                     <row>
-                        <label value="Nama Kreditur:"/>
-                        <textbox value="@bind(vm.nama)" width="250px" placeholder="Masukkan nama kreditur"/>
+                        <label value="Name:"/>
+                        <textbox value="@bind(vm.name)" placeholder="Enter creditor name"/>
                     </row>
                     <row>
-                        <label value="Alamat:"/>
-                        <textbox value="@bind(vm.alamat)" width="250px" placeholder="Masukkan alamat"/>
+                        <label value="Age:"/>
+                        <intbox value="@bind(vm.age)" placeholder="Example: 30"/>
                     </row>
                     <row>
-                        <label value="Nomor Telepon:"/>
-                        <textbox value="@bind(vm.noTelepon)" width="250px" placeholder="08xxxxxxxx"/>
+                        <label value="Income:"/>
+                        <doublebox value="@bind(vm.income)" placeholder="Example: 8000000"/>
                     </row>
                     <row>
-                        <label value="Jumlah Pinjaman:"/>
-                        <doublebox value="@bind(vm.jumlahPinjaman)" width="250px" placeholder="Contoh: 5000000"/>
+                        <label value="Down Payment:"/>
+                        <doublebox value="@bind(vm.downPayment)" placeholder="Example: 2000000"/>
+                    </row>
+                    <row>
+                        <label value="Loan Amount:"/>
+                        <doublebox value="@bind(vm.loanAmount)" placeholder="Example: 10000000"/>
                     </row>
                 </rows>
             </grid>
-            <hlayout>
-                <button label="Simpan" onClick="@command('simpan')" width="100px"/>
-                <!--                <button label="Reset" onClick="@command('reset')" width="100px"/>-->
+
+            <hlayout style="justify-content:flex-start; margin-top:10px;">
+                <button label="Save" onClick="@command('save')"/>
             </hlayout>
         </vlayout>
     </window>

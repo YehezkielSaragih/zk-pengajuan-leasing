@@ -1,32 +1,36 @@
 <?page title="Login" contentType="text/html;charset=UTF-8"?>
 <zk xmlns="http://www.zkoss.org/2005/zul">
-    <vlayout hflex="1" vflex="1" style="display:flex; justify-content:center; align-items:center; background:#f0f2f5;">
-        <window title="🔐 Login" width="500px" border="normal" closable="false"
+    <style src="/css/style.css"/>
+    <style src="/css/login.css"/>
+
+    <vlayout hflex="1" vflex="1" sclass="login-page">
+        <window width="420px" border="normal" closable="false"
                 apply="org.zkoss.bind.BindComposer"
                 viewModel="@id('vm') @init('com.fif.zk.viewmodel.LoginViewModel')"
-                style="border-radius:12px; box-shadow:0 4px 15px rgba(0,0,0,0.2); background:white;">
+                sclass="login-container">
 
-            <vlayout spacing="15px" style="padding:25px;">
-                <label value="Silakan masuk untuk melanjutkan"
-                       style="font-size:14px; color:#555; margin-bottom:10px;"/>
+            <vlayout spacing="15px">
+                <label value="Login" sclass="login-title"/>
 
-                <hlayout spacing="10px">
-                    <label value="Username:" width="100px" style="font-weight:bold;"/>
-                    <textbox value="@bind(vm.username)" width="220px" placeholder="Masukkan username"/>
-                </hlayout>
+                <vlayout sclass="form">
+                    <vlayout sclass="form-row">
+                        <label value="Email" sclass="form-label"/>
+                        <textbox value="@bind(vm.user.email)" placeholder="Enter your email"
+                                 sclass="form-input"/>
+                        <label value="Email is required" sclass="error" visible="false"/>
+                    </vlayout>
 
-                <hlayout spacing="12px">
-                    <label value="Password:" width="100px" style="font-weight:bold;"/>
-                    <textbox type="password" value="@bind(vm.password)" width="220px" placeholder="Masukkan password"/>
-                </hlayout>
+                    <vlayout sclass="form-row">
+                        <label value="Password" sclass="form-label"/>
+                        <textbox type="password" value="@bind(vm.user.password)" placeholder="Enter your password"
+                                 sclass="form-input"/>
+                        <label value="Password is required" sclass="error" visible="false"/>
+                    </vlayout>
 
-                <separator/>
+                    <button label="Login" onClick="@command('login')" sclass="login-button"/>
+                </vlayout>
 
-                <hlayout hflex="1" style="justify-content:center;">
-                    <button label="Login" onClick="@command('login')"
-                            width="120px" height="40px"
-                            style="background:#1976d2; color:white; font-weight:bold; border:none; border-radius:8px;"/>
-                </hlayout>
+                <label sclass="register-link" value="Don’t have an account? Register"/>
             </vlayout>
         </window>
     </vlayout>

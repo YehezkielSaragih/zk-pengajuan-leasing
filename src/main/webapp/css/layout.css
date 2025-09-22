@@ -1,0 +1,75 @@
+/* Global window */
+.app-window {
+    /*width: 100% !important;
+    height: 100% !important;*/
+    border: none !important;
+    padding: 0;
+    margin: 0;
+}
+
+/* Header */
+.app-header {
+    height: 50px;
+    background-color: #1976d2;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.app-header-title {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+/* Sidebar */
+.app-sidebar {
+    width: 200px;
+    background-color: #f4f4f4;
+    padding: 10px;
+}
+
+.sidebar-link {
+    display: block;
+    padding: 10px 12px;
+    margin-bottom: 6px;
+    color: #333;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.sidebar-link:hover {
+    background-color: #e0e0e0;
+    color: #1976d2;
+}
+
+/* Main content */
+.app-content {
+    padding: 15px;
+    background-color: #fafafa;
+    overflow-y: auto;
+}
+
+/* Include pages inside content take full width */
+.app-content > * {
+    width: 100%;
+}
+
+/* Buttons and links consistency */
+button, a.button {
+    cursor: pointer;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 14px;
+    background-color: #4a90e2;
+    color: #fff;
+    font-weight: 600;
+    text-align: center;
+    transition: all 0.2s ease;
+}
+
+button:hover, a.button:hover {
+    background-color: #357ab8;
+}

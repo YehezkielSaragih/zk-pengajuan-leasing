@@ -1,27 +1,32 @@
-<?page title="Main Layout" contentType="text/html;charset=UTF-8"?>
+<?page title="Creditor App" contentType="text/html;charset=UTF-8"?>
 <zk xmlns="http://www.zkoss.org/2005/zul">
+
+    <style src="/css/style.css"/>
+    <style src="/css/layout.css"/>
+
     <window apply="org.zkoss.bind.BindComposer"
             viewModel="@id('vm') @init('com.fif.zk.viewmodel.LayoutViewModel')"
-            border="none" width="100%" height="100%">
+            border="none" width="100%" height="100%"
+            sclass="app-window">
 
         <borderlayout height="100%" width="100%">
 
             <!-- header -->
-            <north height="50px" style="background:#1976d2; color:white; padding:10px;">
-                <label value="Aplikasi Kreditur" style="font-weight:bold; font-size:18px;"/>
+            <north sclass="app-header">
+                <label value="Creditor App" sclass="app-header-title"/>
             </north>
 
             <!-- sidebar -->
-            <west width="200px" style="background:#f4f4f4; padding:10px;">
+            <west sclass="app-sidebar">
                 <vlayout spacing="10px">
-                    <a href="/pages/layout.zul?page=/pages/dashboard.zul" label="📄 Data Kreditur"/>
-                    <a href="/pages/layout.zul?page=/pages/form.zul" label="➕ Tambah Kreditur"/>
-                    <a href="/pages/login.zul" label="🚪 Logout"/>
+                    <a href="/pages/layout.zul?page=/pages/dashboard.zul" label="📄 Dashboard" sclass="sidebar-link"/>
+                    <a href="/pages/layout.zul?page=/pages/form.zul" label="➕ Form" sclass="sidebar-link"/>
+                    <a href="/pages/login.zul" label="🚪 Logout" sclass="sidebar-link"/>
                 </vlayout>
             </west>
 
-            <!-- konten -->
-            <center>
+            <!-- content -->
+            <center sclass="app-content">
                 <include src="@load(vm.page)" mode="instant"/>
             </center>
         </borderlayout>

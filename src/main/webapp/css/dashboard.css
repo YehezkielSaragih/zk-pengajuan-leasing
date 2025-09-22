@@ -1,0 +1,111 @@
+.listbox {
+    width: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    background: #fff;
+    font-size: 14px;
+}
+
+/* Header */
+.listhead {
+    background: linear-gradient(135deg, #4a90e2, #357abd);
+    color: #fff;
+}
+
+.listheader {
+    padding: 14px 16px;
+    font-weight: 600;
+    text-align: center;
+    border-right: 1px solid rgba(255,255,255,0.2);
+}
+
+.listheader:last-child {
+    border-right: none;
+}
+
+/* Rows */
+.listitem {
+    border-bottom: 1px solid #e6e6e6;
+    transition: all 0.25s ease-in-out;
+}
+
+.listitem:nth-child(odd) {
+    background-color: #ffffff;
+}
+
+.listitem:nth-child(even) {
+    background-color: #edf3fb;
+}
+
+.listitem:hover {
+    transform: scale(1.01);
+}
+
+/* Cells */
+.listcell {
+    padding: 12px 14px;
+    text-align: center;
+    vertical-align: middle;
+    border-right: 1px solid #f0f0f0;
+}
+
+.listcell:last-child {
+    border-right: none;
+}
+
+/* Tombol action di cell */
+.listcell button {
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+    color: #fff;
+    border: none;
+    padding: 6px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.listcell button:hover {
+    background: linear-gradient(135deg, #c0392b, #962d22);
+    transform: translateY(-2px);
+    box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+}
+
+/* Status badge */
+.status-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #fff;
+    text-transform: capitalize;
+}
+
+.pending {
+    background-color: #f1c40f;
+    color: #000;
+}
+
+.survey {
+    background-color: #3498db;
+}
+
+.approved {
+    background-color: #2ecc71;
+}
+
+.rejected {
+    background-color: #e74c3c;
+}
+
+/* Pesan kosong */
+.empty-message {
+    text-align: center;
+    font-style: italic;
+    color: #777;
+    margin-top: 20px;
+    font-size: 15px;
+}

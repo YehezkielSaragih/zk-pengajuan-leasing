@@ -1,6 +1,11 @@
-package com.fif.zk.model;
+package com.fif.zk.viewmodel;
 
-public class Creditor {
+import com.fif.zk.model.Creditor;
+import com.fif.zk.service.CreditorService;
+import org.zkoss.bind.annotation.Command;
+import org.zkoss.zk.ui.Executions;
+
+public class FormViewModel {
 
     private String name;
     private int age;
@@ -8,16 +13,7 @@ public class Creditor {
     private double downPayment;
     private double loanAmount;
 
-    public Creditor() {}
-
-    public Creditor(String name, int age, double income, double downPayment, double loanAmount) {
-        this.name = name;
-        this.age = age;
-        this.income = income;
-        this.downPayment = downPayment;
-        this.loanAmount = loanAmount;
-    }
-
+    // Getters & Setters
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
 
@@ -32,4 +28,12 @@ public class Creditor {
 
     public double getLoanAmount() { return loanAmount; }
     public void setLoanAmount(double loanAmount) { this.loanAmount = loanAmount; }
+
+    @Command
+    public void save() {
+        CreditorService.getInstance().addCreditor(
+                new Creditor(name, age, income, downPayment, loanAmount)
+        );
+        Executions.sendRedirect("layout.zul?page=dashboard.zul");
+    }
 }
