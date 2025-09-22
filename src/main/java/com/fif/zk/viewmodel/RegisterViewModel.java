@@ -35,6 +35,10 @@ public class RegisterViewModel {
             emailError = true;
             valid = false;
         }
+        else if (UserService.getInstance().existsEmail(user.getEmail())) {
+            emailError = true;
+            valid = false;
+        }
         if (user.getPassword() == null || user.getPassword().trim().isEmpty()) {
             passwordError = true;
             valid = false;

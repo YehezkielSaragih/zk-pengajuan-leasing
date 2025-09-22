@@ -20,7 +20,7 @@
                         <label value="Email" sclass="form-label"/>
                         <textbox value="@bind(vm.user.email)" placeholder="Enter your email"
                                  sclass="form-input"/>
-                        <label value="Email is required" sclass="error" visible="@bind(vm.emailError)"/>
+                        <label value="Invalid email!" sclass="error" visible="@bind(vm.emailError)"/>
                     </vlayout>
 
                     <!-- Password -->
@@ -28,7 +28,7 @@
                         <label value="Password" sclass="form-label"/>
                         <textbox type="password" value="@bind(vm.user.password)" placeholder="Enter your password"
                                  sclass="form-input"/>
-                        <label value="Password is required" sclass="error" visible="@bind(vm.passwordError)"/>
+                        <label value="Invalid password!" sclass="error" visible="@bind(vm.passwordError)"/>
                     </vlayout>
 
                     <!-- Confirm Password -->

@@ -37,4 +37,8 @@ public class UserService {
         User user = getUserByEmail(email);
         return user != null && user.getPassword().equals(password);
     }
+
+    public boolean existsEmail(String email) {
+        return users.stream().anyMatch(u -> u.getEmail().equalsIgnoreCase(email));
+    }
 }
