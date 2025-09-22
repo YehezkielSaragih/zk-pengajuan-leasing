@@ -1,0 +1,11 @@
+com\fif\zk\model\Creditor.class
+com\fif\zk\model\User.class
+com\fif\zk\service\UserService.class
+com\fif\zk\service\CreditorService.class
+com\fif\zk\viewmodel\DetailViewModel.class
+com\fif\zk\MyViewModel.class
+com\fif\zk\viewmodel\FormViewModel.class
+com\fif\zk\viewmodel\DashboardViewModel.class
+com\fif\zk\viewmodel\LayoutViewModel.class
+com\fif\zk\viewmodel\LoginViewModel.class
+com\fif\zk\viewmodel\RegisterViewModel.class

@@ -1,0 +1,52 @@
+<?page title="Register" contentType="text/html;charset=UTF-8"?>
+<zk xmlns="http://www.zkoss.org/2005/zul">
+
+    <style src="/css/style.css"/>
+    <style src="/css/register.css"/>
+
+    <vlayout hflex="1" vflex="1" sclass="register-page">
+        <window width="420px" border="normal" closable="false"
+                apply="org.zkoss.bind.BindComposer"
+                viewModel="@id('vm') @init('com.fif.zk.viewmodel.RegisterViewModel')"
+                sclass="register-container">
+
+            <vlayout spacing="20px">
+                <!-- Title -->
+                <label value="Register" sclass="register-title"/>
+
+                <vlayout sclass="form">
+                    <!-- Email -->
+                    <vlayout sclass="form-row">
+                        <label value="Email" sclass="form-label"/>
+                        <textbox value="@bind(vm.user.email)" placeholder="Enter your email"
+                                 sclass="form-input"/>
+                        <label value="Email is required" sclass="error" visible="@bind(vm.emailError)"/>
+                    </vlayout>
+
+                    <!-- Password -->
+                    <vlayout sclass="form-row">
+                        <label value="Password" sclass="form-label"/>
+                        <textbox type="password" value="@bind(vm.user.password)" placeholder="Enter your password"
+                                 sclass="form-input"/>
+                        <label value="Password is required" sclass="error" visible="@bind(vm.passwordError)"/>
+                    </vlayout>
+
+                    <!-- Confirm Password -->
+                    <vlayout sclass="form-row">
+                        <label value="Confirm Password" sclass="form-label"/>
+                        <textbox type="password" value="@bind(vm.confirmPassword)" placeholder="Confirm your password"
+                                 sclass="form-input"/>
+                        <label value="Passwords do not match" sclass="error" visible="@bind(vm.confirmError)"/>
+                    </vlayout>
+
+                    <!-- Register Button -->
+                    <button label="Register" onClick="@command('register')" sclass="register-button"/>
+                </vlayout>
+
+                <!-- Link to Login -->
+                <label value="Already have an account? Login" sclass="register-link"
+                       onClick="@command('goToLogin')"/>
+            </vlayout>
+        </window>
+    </vlayout>
+</zk>

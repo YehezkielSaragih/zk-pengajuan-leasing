@@ -1,5 +1,6 @@
 <?page title="Login" contentType="text/html;charset=UTF-8"?>
 <zk xmlns="http://www.zkoss.org/2005/zul">
+
     <style src="/css/style.css"/>
     <style src="/css/login.css"/>
 
@@ -9,28 +10,34 @@
                 viewModel="@id('vm') @init('com.fif.zk.viewmodel.LoginViewModel')"
                 sclass="login-container">
 
-            <vlayout spacing="15px">
+            <vlayout spacing="20px">
+                <!-- Title -->
                 <label value="Login" sclass="login-title"/>
 
                 <vlayout sclass="form">
+                    <!-- Email -->
                     <vlayout sclass="form-row">
                         <label value="Email" sclass="form-label"/>
                         <textbox value="@bind(vm.user.email)" placeholder="Enter your email"
                                  sclass="form-input"/>
-                        <label value="Email is required" sclass="error" visible="false"/>
+                        <label value="Invalid email!" sclass="error" visible="@bind(vm.emailError)"/>
                     </vlayout>
 
+                    <!-- Password -->
                     <vlayout sclass="form-row">
                         <label value="Password" sclass="form-label"/>
                         <textbox type="password" value="@bind(vm.user.password)" placeholder="Enter your password"
                                  sclass="form-input"/>
-                        <label value="Password is required" sclass="error" visible="false"/>
+                        <label value="Invalid password!" sclass="error" visible="@bind(vm.passwordError)"/>
                     </vlayout>
 
+                    <!-- Login Button -->
                     <button label="Login" onClick="@command('login')" sclass="login-button"/>
                 </vlayout>
 
-                <label sclass="register-link" value="Don’t have an account? Register"/>
+                <!-- Link to Register -->
+                <label value="Don’t have an account? Register" sclass="login-link"
+                       onClick="@command('goToRegister')"/>
             </vlayout>
         </window>
     </vlayout>
