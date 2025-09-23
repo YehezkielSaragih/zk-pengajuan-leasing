@@ -1,7 +1,7 @@
 package com.fif.zk.viewmodel;
 
 import com.fif.zk.model.User;
-import com.fif.zk.service.UserService;
+import com.fif.zk.service.implementation.UserServiceImpl;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Executions;
@@ -35,7 +35,7 @@ public class RegisterViewModel {
             emailError = true;
             valid = false;
         }
-        else if (UserService.getInstance().existsEmail(user.getEmail())) {
+        else if (UserServiceImpl.getInstance().existsEmail(user.getEmail())) {
             emailError = true;
             valid = false;
         }
@@ -48,7 +48,7 @@ public class RegisterViewModel {
             valid = false;
         }
         if (!valid) return;
-        UserService.getInstance().addUser(user);
+        UserServiceImpl.getInstance().addUser(user);
         Executions.sendRedirect("/pages/login.zul");
     }
 

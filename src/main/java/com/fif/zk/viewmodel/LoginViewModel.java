@@ -1,7 +1,7 @@
 package com.fif.zk.viewmodel;
 
 import com.fif.zk.model.User;
-import com.fif.zk.service.UserService;
+import com.fif.zk.service.implementation.UserServiceImpl;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Executions;
@@ -34,7 +34,7 @@ public class LoginViewModel {
             passwordError = true;
             return;
         }
-        if (UserService.getInstance().validateUser(user.getEmail(), user.getPassword())) {
+        if (UserServiceImpl.getInstance().validateUser(user.getEmail(), user.getPassword())) {
             Executions.sendRedirect("/pages/layout.zul?page=/pages/dashboard.zul");
         } else {
             emailError = true;

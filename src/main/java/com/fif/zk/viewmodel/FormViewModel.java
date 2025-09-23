@@ -1,7 +1,7 @@
 package com.fif.zk.viewmodel;
 
 import com.fif.zk.model.Creditor;
-import com.fif.zk.service.CreditorService;
+import com.fif.zk.service.implementation.CreditorServiceImpl;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.zk.ui.Executions;
 
@@ -35,7 +35,7 @@ public class FormViewModel {
 
     @Command
     public void save() {
-        CreditorService.getInstance().addCreditor(
+        CreditorServiceImpl.getInstance().addCreditor(
                 new Creditor(name, age, income, downPayment, loanAmount, "Pending")
         );
         Executions.sendRedirect("layout.zul?page=dashboard.zul");

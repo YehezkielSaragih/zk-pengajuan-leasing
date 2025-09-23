@@ -1,7 +1,7 @@
 package com.fif.zk.viewmodel;
 
 import com.fif.zk.model.Creditor;
-import com.fif.zk.service.CreditorService;
+import com.fif.zk.service.implementation.CreditorServiceImpl;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.zk.ui.Executions;
@@ -20,14 +20,14 @@ public class DetailViewModel {
         String idParam = Executions.getCurrent().getParameter("id");
         if (idParam != null) {
             int id = Integer.parseInt(idParam);
-            creditor = CreditorService.getInstance().getCreditorById(id);
+            creditor = CreditorServiceImpl.getInstance().getCreditorById(id);
         }
     }
 
     @Command
     public void update() {
         if (creditor != null) {
-            CreditorService.getInstance().updateCreditor(creditor);
+            CreditorServiceImpl.getInstance().updateCreditor(creditor);
         }
         Executions.sendRedirect("layout.zul?page=dashboard.zul");
     }
@@ -35,7 +35,7 @@ public class DetailViewModel {
     @Command
     public void delete() {
         if (creditor != null) {
-            CreditorService.getInstance().deleteCreditor(creditor.getId());
+            CreditorServiceImpl.getInstance().deleteCreditor(creditor.getId());
         }
         Executions.sendRedirect("layout.zul?page=dashboard.zul");
     }

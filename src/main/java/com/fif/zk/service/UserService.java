@@ -2,43 +2,17 @@ package com.fif.zk.service;
 
 import com.fif.zk.model.User;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class UserService {
-    private static UserService instance = new UserService();
-    private List<User> users = new ArrayList<>();
-    private int nextId = 1; // untuk auto-increment
+public interface UserService {
 
-    private UserService(){}
+    void addUser(User user);
 
-    public static UserService getInstance() { return instance; }
+    List<User> getUsers();
 
-    public void addUser(User user){
-        user.setId(nextId++);
-        users.add(user);
-    }
+    User getUserByEmail(String email);
 
-    // Get all users
-    public List<User> getUsers() {
-        return users;
-    }
+    boolean validateUser(String email, String password);
 
-    // Find user by email
-    public User getUserByEmail(String email) {
-        return users.stream()
-                .filter(u -> u.getEmail().equalsIgnoreCase(email))
-                .findFirst()
-                .orElse(null);
-    }
-
-    // Validate login
-    public boolean validateUser(String email, String password) {
-        User user = getUserByEmail(email);
-        return user != null && user.getPassword().equals(password);
-    }
-
-    public boolean existsEmail(String email) {
-        return users.stream().anyMatch(u -> u.getEmail().equalsIgnoreCase(email));
-    }
+    boolean existsEmail(String email);
 }
