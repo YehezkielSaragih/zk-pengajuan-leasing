@@ -22,21 +22,21 @@
             <!-- Creditor List -->
             <listbox model="@bind(vm.filteredCreditors)" width="100%" mold="paging" pageSize="5" sclass="listbox">
                 <listhead class="listhead">
-                    <listheader label="Creditor ID" width="100px"/>
-                    <listheader label="Name"/>
-                    <listheader label="Income"/>
-                    <listheader label="Total Loan"/>
-                    <listheader label="Action" width="200px"/>
+                    <listheader label="ID" style="width:40px;"/>
+                    <listheader label="Name" style="width:210px;"/>
+                    <listheader label="Income" style="width:120px;"/>
+                    <listheader label="Total Loan" style="width:190px;"/>
+                    <listheader label="Action" style="width:180px;"/>
                 </listhead>
 
                 <template name="model">
                     <listitem>
-                        <listcell label="@load(each.id)"/>
-                        <listcell label="@load(each.name)"/>
-                        <listcell label="@load(each.income)"/>
-                        <listcell label="@load(each.totalLoanString)"/>
-                        <listcell>
-                            <hlayout spacing="5px">
+                        <listcell label="@load(each.id)" style="width:40px;"/>
+                        <listcell label="@load(each.name)" style="width:210px;"/>
+                        <listcell label="@load(each.income)" style="width:120px;"/>
+                        <listcell label="@load(each.totalLoanString)" style="width:190px;"/>
+                        <listcell style="width:180px;">
+                            <hlayout spacing="5px" hflex="1">
                                 <button label="Detail" sclass="action-button"
                                         onClick="@command('viewLoans', id=each.id)"/>
                                 <button label="Edit" sclass="action-button"

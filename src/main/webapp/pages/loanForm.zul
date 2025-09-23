@@ -31,7 +31,11 @@
                     </row>
                     <row>
                         <label value="Loan Type:"/>
-                        <textbox value="@bind(vm.loanType)" placeholder="Enter loan type"/>
+                        <combobox value="@bind(vm.loanType)" placeholder="Select loan type" autodrop="true">
+                            <comboitem label="Car" value="Car"/>
+                            <comboitem label="Motorcycle" value="Motorcycle"/>
+                            <comboitem label="Electronic" value="Electronic"/>
+                        </combobox>
                     </row>
                     <row>
                         <label value="Down Payment:"/>

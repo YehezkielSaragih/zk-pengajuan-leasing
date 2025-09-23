@@ -15,7 +15,8 @@ import java.util.stream.Collectors;
 public class LoanDashboardViewModel {
 
     private String filterText = "";
-    private String filterStatus = "All";
+    private String filterStatus = "All Status";
+    private String filterType = "All Type";
     private List<LoanDashboardItem> filteredLoans;
 
     private int deletingId = -1;
@@ -24,6 +25,8 @@ public class LoanDashboardViewModel {
     public LoanDashboardViewModel() {
         filteredLoans = loadDashboardItems();
     }
+    public String getFilterType() { return filterType; }
+    public void setFilterType(String filterType) { this.filterType = filterType; }
 
     // === Getters ===
     public List<LoanDashboardItem> getFilteredLoans() { return filteredLoans; }
@@ -58,7 +61,8 @@ public class LoanDashboardViewModel {
                 .filter(l -> (filterText.isEmpty()
                         || l.getCreditorName().toLowerCase().contains(filterText.toLowerCase())
                         || String.valueOf(l.getLoanId()).contains(filterText)))
-                .filter(l -> filterStatus.equals("All") || l.getStatus().equalsIgnoreCase(filterStatus))
+                .filter(l -> filterStatus.equals("All Status") || l.getStatus().equalsIgnoreCase(filterStatus))
+                .filter(l -> filterType.equals("All Type") || l.getLoanType().equalsIgnoreCase(filterType)) // tambahan
                 .collect(Collectors.toList());
     }
 
@@ -66,7 +70,8 @@ public class LoanDashboardViewModel {
     @NotifyChange({"filteredLoans", "filterText", "filterStatus"})
     public void clearFilter() {
         filterText = "";
-        filterStatus = "All";
+        filterStatus = "All Status";
+        filterType = "All Type";
         filteredLoans = loadDashboardItems();
     }
 

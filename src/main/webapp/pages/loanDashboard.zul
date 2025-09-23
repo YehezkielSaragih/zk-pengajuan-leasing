@@ -16,44 +16,57 @@
             <hlayout spacing="10px">
                 <textbox placeholder="Search by Creditor Name" sclass="filter-box"
                          value="@bind(vm.filterText)" onOK="@command('filter')"/>
-                <combobox sclass="status-filter" value="@bind(vm.filterStatus)" onChange="@command('filter')">
-                    <comboitem label="All" value="All"/>
+                <combobox sclass="status-filter" value="@bind(vm.filterStatus)" onChange="@command('filter')" autodrop="true">
+                    <!-- Placeholder item -->
+                    <comboitem label="Filter by Status" value="" disabled="true"
+                               selected="@load(empty vm.filterStatus)"/>
+                    <comboitem label="All Status" value="All"/>
                     <comboitem label="Pending" value="Pending"/>
                     <comboitem label="Approved" value="Approved"/>
                     <comboitem label="Rejected" value="Rejected"/>
+                </combobox>
+                <combobox sclass="type-filter" value="@bind(vm.filterType)" onChange="@command('filter')" autodrop="true">
+                    <!-- Placeholder item -->
+                    <comboitem label="Filter by Loan Type" value="" disabled="true"
+                               selected="@load(empty vm.filterType)"/>
+                    <comboitem label="All Type" value="All"/>
+                    <comboitem label="Car" value="Car"/>
+                    <comboitem label="Motorcycle" value="Motorcycle"/>
+                    <comboitem label="Electronic" value="Electronic"/>
                 </combobox>
                 <button label="Remove Filter" sclass="remove-filter" onClick="@command('clearFilter')"/>
             </hlayout>
 
             <!-- Loan List -->
+            <!-- Loan List -->
             <listbox model="@bind(vm.filteredLoans)" width="100%" mold="paging" pageSize="5" sclass="listbox">
                 <listhead class="listhead">
-                    <listheader label="Loan ID"/>
-                    <listheader label="Creditor Name"/>
-                    <listheader label="Loan Name"/>
-                    <listheader label="Loan Type"/>
-                    <listheader label="Loan Amount"/>
-                    <listheader label="Down Payment"/>
-                    <listheader label="Status"/>
-                    <listheader label="Action"/>
+                    <listheader label="ID" style="width:50px;"/>
+                    <listheader label="Creditor Name" style="width:180px;"/>
+                    <listheader label="Loan Name" style="width:150px;"/>
+                    <listheader label="Loan Type" style="width:100px;"/>
+                    <listheader label="Loan Amount" style="width:120px;"/>
+                    <listheader label="Down Payment" style="width:120px;"/>
+                    <listheader label="Status" style="width:100px;"/>
+                    <listheader label="Action" style="width:170px;"/>
                 </listhead>
 
                 <template name="model">
                     <listitem>
-                        <listcell label="@load(each.loanId)"/>
-                        <listcell label="@load(each.creditorName)"/>
-                        <listcell label="@load(each.loanName)"/>
-                        <listcell label="@load(each.loanType)"/>
-                        <listcell label="@load(each.loanAmount)"/>
-                        <listcell label="@load(each.downPayment)"/>
-                        <listcell>
+                        <listcell label="@load(each.loanId)" style="width:50px;"/>
+                        <listcell label="@load(each.creditorName)" style="width:180px;"/>
+                        <listcell label="@load(each.loanName)" style="width:150px;"/>
+                        <listcell label="@load(each.loanType)" style="width:100px;"/>
+                        <listcell label="@load(each.loanAmount)" style="width:120px;"/>
+                        <listcell label="@load(each.downPayment)" style="width:120px;"/>
+                        <listcell style="width:100px;">
                             <label value="@load(each.status)" sclass="status-badge
                 ${each.status == 'Pending' ? 'pending' :
                   each.status == 'Approved' ? 'approved' :
                   each.status == 'Rejected' ? 'rejected' : ''}"/>
                         </listcell>
-                        <listcell>
-                            <hlayout spacing="5px">
+                        <listcell style="width:170px;">
+                            <hlayout spacing="5px" hflex="1">
                                 <button label="Edit" sclass="action-button"
                                         onClick="@command('editLoan', id=each.loanId)"/>
                                 <button label="Delete" sclass="action-button"
@@ -63,6 +76,7 @@
                     </listitem>
                 </template>
             </listbox>
+
         </vlayout>
 
         <!-- Delete Modal -->
