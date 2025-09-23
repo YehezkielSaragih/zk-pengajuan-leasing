@@ -129,3 +129,10 @@ intbox::placeholder,
 doublebox::placeholder {
     color: #aaa;
 }
+
+.page-title {
+    font-weight: 700;
+    font-size: 22px;
+    color: #4a90e2;
+    text-align: left;
+}

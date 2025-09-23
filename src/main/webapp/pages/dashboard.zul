@@ -10,7 +10,7 @@
             border="none" width="100%" height="100%">
 
         <vlayout sclass="dashboard-container" spacing="10px">
-            <label value="List of Creditors" sclass="dashboard-title"/>
+            <label value="List of Creditors" sclass="page-title"/>
 
             <hlayout spacing="10px">
                 <!-- Input filter nama/ID -->

@@ -17,11 +17,17 @@
             </north>
 
             <!-- sidebar -->
-            <west sclass="app-sidebar">
+            <west sclass="app-sidebar" splittable="false">
                 <vlayout spacing="10px">
-                    <a href="/pages/layout.zul?page=/pages/dashboard.zul" label="📄 Dashboard" sclass="sidebar-link"/>
-                    <a href="/pages/layout.zul?page=/pages/form.zul" label="➕ Form" sclass="sidebar-link"/>
-                    <a href="/pages/login.zul" label="🚪 Logout" sclass="sidebar-link"/>
+                    <a href="/pages/layout.zul?page=/pages/dashboard.zul"
+                       label="📄 Dashboard"
+                       sclass="@load(vm.dashboardClass)"/>
+                    <a href="/pages/layout.zul?page=/pages/form.zul"
+                       label="➕ Form"
+                       sclass="@load(vm.formClass)"/>
+                    <a href="/pages/login.zul"
+                       label="🚪 Logout"
+                       sclass="sidebar-link"/>
                 </vlayout>
             </west>
 
