@@ -1,6 +1,6 @@
 package com.fif.zk.dto;
 
-public class LoanDashboardItem {
+public class LoanDashboardResponse {
     private Integer loanId;
     private String creditorName;
     private String loanName;
@@ -9,10 +9,10 @@ public class LoanDashboardItem {
     private Integer downPayment;
     private String status;
 
-    public LoanDashboardItem(Integer loanId, String creditorName,
-                             String loanName, String loanType,
-                             Integer loanAmount, Integer downPayment,
-                             String status) {
+    public LoanDashboardResponse(Integer loanId, String creditorName,
+                                 String loanName, String loanType,
+                                 Integer loanAmount, Integer downPayment,
+                                 String status) {
         this.loanId = loanId;
         this.creditorName = creditorName != null ? creditorName : "Unknown";
         this.loanName = loanName != null ? loanName : "";

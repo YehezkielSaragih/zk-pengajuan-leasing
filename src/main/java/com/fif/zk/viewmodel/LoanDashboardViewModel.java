@@ -3,7 +3,7 @@ package com.fif.zk.viewmodel;
 import com.fif.zk.model.Creditor;
 import com.fif.zk.service.implementation.CreditorServiceImpl;
 import com.fif.zk.service.implementation.LoanServiceImpl;
-import com.fif.zk.dto.LoanDashboardItem;
+import com.fif.zk.dto.LoanDashboardResponse;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.bind.annotation.BindingParam;
@@ -17,7 +17,7 @@ public class LoanDashboardViewModel {
     private String filterText = "";
     private String filterStatus = "All Status";
     private String filterType = "All Type";
-    private List<LoanDashboardItem> filteredLoans;
+    private List<LoanDashboardResponse> filteredLoans;
 
     private int deletingId = -1;
     private boolean showDeleteModal = false;
@@ -29,7 +29,7 @@ public class LoanDashboardViewModel {
     public void setFilterType(String filterType) { this.filterType = filterType; }
 
     // === Getters ===
-    public List<LoanDashboardItem> getFilteredLoans() { return filteredLoans; }
+    public List<LoanDashboardResponse> getFilteredLoans() { return filteredLoans; }
     public String getFilterText() { return filterText; }
     public void setFilterText(String filterText) { this.filterText = filterText; }
     public String getFilterStatus() { return filterStatus; }
@@ -37,11 +37,11 @@ public class LoanDashboardViewModel {
     public int getDeletingId() { return deletingId; }
     public boolean isShowDeleteModal() { return showDeleteModal; }
 
-    private List<LoanDashboardItem> loadDashboardItems() {
+    private List<LoanDashboardResponse> loadDashboardItems() {
         return LoanServiceImpl.getInstance().getLoans().stream()
                 .map(l -> {
                     Creditor c = CreditorServiceImpl.getInstance().getCreditorById(l.getCreditorId());
-                    return new LoanDashboardItem(
+                    return new LoanDashboardResponse(
                             l.getId(),
                             c != null ? c.getName() : "Unknown",
                             l.getLoanName(),

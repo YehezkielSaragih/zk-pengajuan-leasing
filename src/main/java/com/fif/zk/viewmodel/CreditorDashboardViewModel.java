@@ -1,6 +1,6 @@
 package com.fif.zk.viewmodel;
 
-import com.fif.zk.dto.CreditorDashboardItem;
+import com.fif.zk.dto.CreditorDashboardResponse;
 import com.fif.zk.model.Creditor;
 import com.fif.zk.model.Loan;
 import com.fif.zk.service.implementation.CreditorServiceImpl;
@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 public class CreditorDashboardViewModel {
     private String filterText = "";
-    private List<CreditorDashboardItem> filteredCreditors;
+    private List<CreditorDashboardResponse> filteredCreditors;
 
     private int deletingId = -1;
     private boolean showDeleteModal = false;
@@ -26,14 +26,14 @@ public class CreditorDashboardViewModel {
     }
 
     // === Getters & Setters ===
-    public List<CreditorDashboardItem> getFilteredCreditors() { return filteredCreditors; }
+    public List<CreditorDashboardResponse> getFilteredCreditors() { return filteredCreditors; }
     public String getFilterText() { return filterText; }
     public void setFilterText(String filterText) { this.filterText = filterText; }
     public int getDeletingId() { return deletingId; }
     public boolean isShowDeleteModal() { return showDeleteModal; }
 
     // === Load data ===
-    private List<CreditorDashboardItem> loadDashboardItems() {
+    private List<CreditorDashboardResponse> loadDashboardItems() {
         return CreditorServiceImpl.getInstance().getCreditors().stream()
                 .map(c -> {
                     List<Loan> loans = LoanServiceImpl.getInstance().getLoansByCreditorId(c.getId())
@@ -46,7 +46,7 @@ public class CreditorDashboardViewModel {
                     long pending = loans.stream().filter(l -> "Pending".equalsIgnoreCase(l.getStatus())).count();
 
 
-                    return new CreditorDashboardItem(
+                    return new CreditorDashboardResponse(
                             c.getId(),
                             c.getName(),
                             c.getIncome(),

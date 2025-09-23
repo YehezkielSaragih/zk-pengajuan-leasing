@@ -1,6 +1,6 @@
 package com.fif.zk.dto;
 
-public class LoanDetail {
+public class LoanDetailResponse {
     private int id;
     private String creditorName;
     private String loanName;      // baru

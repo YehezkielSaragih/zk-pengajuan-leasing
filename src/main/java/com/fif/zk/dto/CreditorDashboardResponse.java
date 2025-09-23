@@ -1,6 +1,6 @@
 package com.fif.zk.dto;
 
-public class CreditorDashboardItem {
+public class CreditorDashboardResponse {
     private Integer id;
     private String name;
     private Integer income;
@@ -9,8 +9,8 @@ public class CreditorDashboardItem {
     private Long pendingLoanCount;
 
     // constructor
-    public CreditorDashboardItem(Integer id, String name, Integer income,
-                                Long activeLoanCount, Long rejectedLoanCount, Long pendingLoanCount) {
+    public CreditorDashboardResponse(Integer id, String name, Integer income,
+                                     Long activeLoanCount, Long rejectedLoanCount, Long pendingLoanCount) {
         this.id = id;
         this.name = name;
         this.income = income;

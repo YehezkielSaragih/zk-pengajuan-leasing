@@ -76,7 +76,7 @@
                         <listheader label="Loan ID" width="80px"/>
                         <listheader label="Loan Name"/>
                         <listheader label="Type"/>
-                        <listheader label="Down Payment"/>
+                        <listheader label="DP"/>
                         <listheader label="Amount"/>
                         <listheader label="Status"/>
                     </listhead>

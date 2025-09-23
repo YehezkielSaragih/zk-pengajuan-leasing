@@ -1,6 +1,6 @@
 package com.fif.zk.viewmodel;
 
-import com.fif.zk.dto.LoanDetail;
+import com.fif.zk.dto.LoanDetailResponse;
 import com.fif.zk.model.Creditor;
 import com.fif.zk.model.Loan;
 import com.fif.zk.service.implementation.CreditorServiceImpl;
@@ -10,9 +10,9 @@ import org.zkoss.bind.annotation.Init;
 import org.zkoss.zk.ui.Executions;
 
 public class LoanDetailViewModel {
-    private LoanDetail loan;
+    private LoanDetailResponse loan;
 
-    public LoanDetail getLoan() { return loan; }
+    public LoanDetailResponse getLoan() { return loan; }
 
     @Init
     public void init() {
@@ -22,7 +22,7 @@ public class LoanDetailViewModel {
             Loan l = LoanServiceImpl.getInstance().getLoanById(loanId);
             if (l != null) {
                 Creditor c = CreditorServiceImpl.getInstance().getCreditorById(l.getCreditorId());
-                loan = new LoanDetail();
+                loan = new LoanDetailResponse();
                 loan.setId(l.getId());
                 loan.setLoanName(l.getLoanName());       // Tambahkan loanName
                 loan.setLoanType(l.getLoanType());       // Tambahkan loanType
