@@ -1,5 +1,0 @@
-<zk>
-    <zscript>
-        Executions.sendRedirect("/pages/login.zul");
-    </zscript>
-</zk>
