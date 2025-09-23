@@ -36,7 +36,7 @@ public class LoanServiceImpl implements LoanService {
     @Override
     public void deleteLoan(int id) {
         loans.stream()
-                .filter(l -> l.getId().equals(id))
+                .filter(l -> l.getId().equals(id) && l.getDeletedAt() == null)
                 .findFirst()
                 .ifPresent(l -> l.setDeletedAt(LocalDateTime.now()));
     }
@@ -52,7 +52,8 @@ public class LoanServiceImpl implements LoanService {
     @Override
     public void updateLoan(Loan updated) {
         for (int i = 0; i < loans.size(); i++) {
-            if (loans.get(i).getId().equals(updated.getId())) {
+            Loan current = loans.get(i);
+            if (current.getId().equals(updated.getId()) && current.getDeletedAt() == null) {
                 updated.setUpdatedAt(LocalDateTime.now());
                 loans.set(i, updated);
                 break;
@@ -62,7 +63,7 @@ public class LoanServiceImpl implements LoanService {
 
     public List<Loan> getLoansByCreditorId(int creditorId) {
         return loans.stream()
-                .filter(l -> l.getCreditorId() == creditorId)
+                .filter(l -> l.getCreditorId() == creditorId && l.getDeletedAt() == null)
                 .collect(Collectors.toList());
     }
 }

@@ -14,15 +14,24 @@ import java.util.stream.Collectors;
 
 public class LoanFormViewModel {
 
-    private String selectedCreditorName;
+    private Creditor selectedCreditor;
+    private String loanName;
+    private String loanType;
     private Integer loanAmount;
     private Integer downPayment;
     private String status = "Pending"; // default
-    private List<String> creditorNames;
+
+    private List<Creditor> creditors;
 
     // === Getters / Setters ===
-    public String getSelectedCreditorName() { return selectedCreditorName; }
-    public void setSelectedCreditorName(String selectedCreditorName) { this.selectedCreditorName = selectedCreditorName; }
+    public Creditor getSelectedCreditor() { return selectedCreditor; }
+    public void setSelectedCreditor(Creditor selectedCreditor) { this.selectedCreditor = selectedCreditor; }
+
+    public String getLoanName() { return loanName; }
+    public void setLoanName(String loanName) { this.loanName = loanName; }
+
+    public String getLoanType() { return loanType; }
+    public void setLoanType(String loanType) { this.loanType = loanType; }
 
     public Integer getLoanAmount() { return loanAmount; }
     public void setLoanAmount(Integer loanAmount) { this.loanAmount = loanAmount; }
@@ -33,41 +42,51 @@ public class LoanFormViewModel {
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }
 
-    public List<String> getCreditorNames() { return creditorNames; }
+    public List<Creditor> getCreditors() { return creditors; }
 
-    // === Initialize creditor list ===
+    // === Initialize ===
     @Init
     public void init() {
-        creditorNames = CreditorServiceImpl.getInstance().getCreditors()
+        creditors = CreditorServiceImpl.getInstance().getCreditors()
                 .stream()
-                .filter(c -> c.getDeletedAt() == null) // exclude soft-deleted
-                .map(Creditor::getName)
+                .filter(c -> c.getDeletedAt() == null)
                 .collect(Collectors.toList());
     }
 
     // === Save Loan ===
     @Command
     public void save() {
-        if (selectedCreditorName == null || selectedCreditorName.isEmpty()) {
+        if (selectedCreditor == null) {
             Clients.showNotification("Please select a creditor!", "error", null, "middle_center", 3000);
             return;
         }
-
-        // Find the Creditor object by name
-        Creditor creditor = CreditorServiceImpl.getInstance().getCreditors()
-                .stream()
-                .filter(c -> c.getName().equalsIgnoreCase(selectedCreditorName))
-                .findFirst()
-                .orElse(null);
-
-        if (creditor == null) {
-            Clients.showNotification("Creditor not found!", "error", null, "middle_center", 3000);
+        if (loanName == null || loanName.isEmpty()) {
+            Clients.showNotification("Please enter a loan name!", "error", null, "middle_center", 3000);
+            return;
+        }
+        if (loanType == null || loanType.isEmpty()) {
+            Clients.showNotification("Please enter a loan type!", "error", null, "middle_center", 3000);
+            return;
+        }
+        if (loanAmount == null || loanAmount <= 0) {
+            Clients.showNotification("Please enter a valid loan amount!", "error", null, "middle_center", 3000);
             return;
         }
 
-        Loan loan = new Loan(creditor.getId(), loanAmount, downPayment, status);
-        LoanServiceImpl.getInstance().addLoan(loan);
+        Loan loan = new Loan(
+                selectedCreditor.getId(),
+                loanName,
+                loanType,
+                loanAmount,
+                downPayment != null ? downPayment : 0,
+                status
+        );
 
+        LoanServiceImpl.getInstance().addLoan(loan);
+        selectedCreditor.addLoan(loan);
+        CreditorServiceImpl.getInstance().updateCreditor(selectedCreditor);
+
+        Clients.showNotification("Loan saved successfully!", "info", null, "top_center", 2000);
         Executions.sendRedirect("layout.zul?page=loanDashboard.zul");
     }
 }

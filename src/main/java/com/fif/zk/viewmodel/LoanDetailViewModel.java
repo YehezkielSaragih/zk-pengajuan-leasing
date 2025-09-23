@@ -24,7 +24,9 @@ public class LoanDetailViewModel {
                 Creditor c = CreditorServiceImpl.getInstance().getCreditorById(l.getCreditorId());
                 loan = new LoanDetail();
                 loan.setId(l.getId());
-                loan.setLoanAmount(l.getAmount());
+                loan.setLoanName(l.getLoanName());       // Tambahkan loanName
+                loan.setLoanType(l.getLoanType());       // Tambahkan loanType
+                loan.setLoanAmount(l.getLoanAmount());
                 loan.setDownPayment(l.getDownPayment());
                 loan.setStatus(l.getStatus());
                 loan.setCreditorName(c != null ? c.getName() : "Unknown");
@@ -37,6 +39,7 @@ public class LoanDetailViewModel {
         if (loan != null) {
             Loan l = LoanServiceImpl.getInstance().getLoanById(loan.getId());
             if (l != null) {
+                // Update status saja
                 l.setStatus(loan.getStatus());
                 LoanServiceImpl.getInstance().updateLoan(l);
             }

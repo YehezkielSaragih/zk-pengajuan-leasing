@@ -1,0 +1,12 @@
+com\fif\zk\dto\CreditorDashboardItem.class
+com\fif\zk\viewmodel\LoanDashboardViewModel.class
+com\fif\zk\dto\LoanDashboardItem.class
+com\fif\zk\viewmodel\CreditorDashboardViewModel.class
+com\fif\zk\viewmodel\LoanDetailViewModel.class
+com\fif\zk\model\Loan.class
+com\fif\zk\viewmodel\CreditorDetailViewModel.class
+com\fif\zk\dto\LoanDetail.class
+com\fif\zk\viewmodel\LoanFormViewModel.class
+com\fif\zk\service\implementation\LoanServiceImpl.class
+com\fif\zk\viewmodel\CreditorFormViewModel.class
+com\fif\zk\service\LoanService.class

@@ -1,6 +1,7 @@
 package com.fif.zk.viewmodel;
 
 import com.fif.zk.dto.CreditorDashboardItem;
+import com.fif.zk.model.Creditor;
 import com.fif.zk.model.Loan;
 import com.fif.zk.service.implementation.CreditorServiceImpl;
 import com.fif.zk.service.implementation.LoanServiceImpl;
@@ -9,6 +10,7 @@ import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Executions;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -102,5 +104,38 @@ public class CreditorDashboardViewModel {
     public void cancelDelete() {
         deletingId = -1;
         showDeleteModal = false;
+    }
+
+    private boolean showLoanModal = false;
+    private String selectedCreditorName;
+    private List<Loan> selectedLoans = new ArrayList<>();
+
+    public boolean isShowLoanModal() { return showLoanModal; }
+    public String getSelectedCreditorName() { return selectedCreditorName; }
+    public List<Loan> getSelectedLoans() { return selectedLoans; }
+
+    @Command
+    @NotifyChange({"showLoanModal", "selectedLoans", "selectedCreditorName"})
+    public void viewLoans(@BindingParam("id") int creditorId) {
+        // ambil creditor
+        Creditor c = CreditorServiceImpl.getInstance().getCreditors().stream()
+                .filter(cred -> cred.getId() == creditorId)
+                .findFirst()
+                .orElse(null);
+
+        if (c != null) {
+            selectedCreditorName = c.getName();
+            selectedLoans = LoanServiceImpl.getInstance().getLoansByCreditorId(c.getId())
+                    .stream()
+                    .filter(l -> l.getDeletedAt() == null)
+                    .collect(Collectors.toList());
+            showLoanModal = true;
+        }
+    }
+
+    @Command
+    @NotifyChange("showLoanModal")
+    public void closeLoanModal() {
+        showLoanModal = false;
     }
 }

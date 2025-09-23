@@ -16,25 +16,37 @@
                 <rows>
                     <row>
                         <label value="Creditor:"/>
-                        <combobox value="@bind(vm.selectedCreditorName)" placeholder="Select creditor" autodrop="true">
-                            <comboitem forEach="@load(vm.creditorNames)"
-                                       label="@load(each)"
-                                       value="@load(each)"/>
+                        <combobox model="@load(vm.creditors)"
+                                  selectedItem="@bind(vm.selectedCreditor)"
+                                  placeholder="Select Creditor"
+                                  autodrop="true">
+                            <template name="model">
+                                <comboitem label="@load(each.name)" value="@load(each)"/>
+                            </template>
                         </combobox>
                     </row>
                     <row>
+                        <label value="Loan Name:"/>
+                        <textbox value="@bind(vm.loanName)" placeholder="Enter loan name"/>
+                    </row>
+                    <row>
+                        <label value="Loan Type:"/>
+                        <textbox value="@bind(vm.loanType)" placeholder="Enter loan type"/>
+                    </row>
+                    <row>
                         <label value="Down Payment:"/>
-                        <doublebox value="@bind(vm.downPayment)" placeholder="Example: 2000000"/>
+                        <longbox value="@bind(vm.downPayment)" placeholder="Example: 2000000"/>
                     </row>
                     <row>
                         <label value="Loan Amount:"/>
-                        <doublebox value="@bind(vm.loanAmount)" placeholder="Example: 10000000"/>
+                        <longbox value="@bind(vm.loanAmount)" placeholder="Example: 10000000"/>
                     </row>
                 </rows>
             </grid>
 
-            <hlayout style="justify-content:flex-start; margin-top:10px;">
+            <hlayout spacing="10px" style="justify-content:flex-start; margin-top:10px;">
                 <button label="Save" onClick="@command('save')"/>
+                <button label="Back" onClick="@command('back')"/>
             </hlayout>
         </vlayout>
     </window>

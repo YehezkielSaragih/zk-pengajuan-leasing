@@ -3,8 +3,10 @@ package com.fif.zk.dto;
 public class LoanDetail {
     private int id;
     private String creditorName;
+    private String loanName;      // baru
+    private String loanType;      // baru
     private int loanAmount;
-    private int downPayment; // add this
+    private int downPayment;
     private String status;
 
     // === Getters & Setters ===
@@ -13,6 +15,12 @@ public class LoanDetail {
 
     public String getCreditorName() { return creditorName; }
     public void setCreditorName(String creditorName) { this.creditorName = creditorName; }
+
+    public String getLoanName() { return loanName; }
+    public void setLoanName(String loanName) { this.loanName = loanName; }
+
+    public String getLoanType() { return loanType; }
+    public void setLoanType(String loanType) { this.loanType = loanType; }
 
     public int getLoanAmount() { return loanAmount; }
     public void setLoanAmount(int loanAmount) { this.loanAmount = loanAmount; }

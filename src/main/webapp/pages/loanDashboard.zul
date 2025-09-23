@@ -12,29 +12,28 @@
         <vlayout sclass="dashboard-container" spacing="10px">
             <label value="List of Loans" sclass="page-title"/>
 
+            <!-- Filters -->
             <hlayout spacing="10px">
-                <!-- Input filter creditor name -->
                 <textbox placeholder="Search by Creditor Name" sclass="filter-box"
                          value="@bind(vm.filterText)" onOK="@command('filter')"/>
-
-                <!-- Dropdown filter status -->
                 <combobox sclass="status-filter" value="@bind(vm.filterStatus)" onChange="@command('filter')">
                     <comboitem label="All" value="All"/>
                     <comboitem label="Pending" value="Pending"/>
                     <comboitem label="Approved" value="Approved"/>
                     <comboitem label="Rejected" value="Rejected"/>
                 </combobox>
-
-                <!-- Remove filter -->
                 <button label="Remove Filter" sclass="remove-filter" onClick="@command('clearFilter')"/>
             </hlayout>
 
-            <!-- Listbox -->
+            <!-- Loan List -->
             <listbox model="@bind(vm.filteredLoans)" width="100%" mold="paging" pageSize="5" sclass="listbox">
                 <listhead class="listhead">
                     <listheader label="Loan ID"/>
                     <listheader label="Creditor Name"/>
+                    <listheader label="Loan Name"/>
+                    <listheader label="Loan Type"/>
                     <listheader label="Loan Amount"/>
+                    <listheader label="Down Payment"/>
                     <listheader label="Status"/>
                     <listheader label="Action"/>
                 </listhead>
@@ -43,12 +42,15 @@
                     <listitem>
                         <listcell label="@load(each.loanId)"/>
                         <listcell label="@load(each.creditorName)"/>
+                        <listcell label="@load(each.loanName)"/>
+                        <listcell label="@load(each.loanType)"/>
                         <listcell label="@load(each.loanAmount)"/>
+                        <listcell label="@load(each.downPayment)"/>
                         <listcell>
                             <label value="@load(each.status)" sclass="status-badge
-                        ${each.status == 'Pending' ? 'pending' :
-                          each.status == 'Approved' ? 'approved' :
-                          each.status == 'Rejected' ? 'rejected' : 'survey'}"/>
+                ${each.status == 'Pending' ? 'pending' :
+                  each.status == 'Approved' ? 'approved' :
+                  each.status == 'Rejected' ? 'rejected' : ''}"/>
                         </listcell>
                         <listcell>
                             <hlayout spacing="5px">
@@ -63,7 +65,7 @@
             </listbox>
         </vlayout>
 
-        <!-- Custom Delete Modal -->
+        <!-- Delete Modal -->
         <window id="deleteModal" title="Confirm Delete" border="normal" width="300px"
                 closable="false" visible="@bind(vm.showDeleteModal)" position="center"
                 mode="modal" sclass="confirm-modal">

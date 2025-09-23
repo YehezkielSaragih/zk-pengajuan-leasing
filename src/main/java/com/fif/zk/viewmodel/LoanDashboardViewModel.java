@@ -41,7 +41,10 @@ public class LoanDashboardViewModel {
                     return new LoanDashboardItem(
                             l.getId(),
                             c != null ? c.getName() : "Unknown",
-                            l.getAmount(),
+                            l.getLoanName(),
+                            l.getLoanType(),
+                            l.getLoanAmount(),
+                            l.getDownPayment(),
                             l.getStatus()
                     );
                 })

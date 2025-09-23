@@ -26,6 +26,14 @@
                         <label value="@load(vm.loan.creditorName)"/>
                     </row>
                     <row>
+                        <label value="Loan Name:"/>
+                        <label value="@load(vm.loan.loanName)"/>
+                    </row>
+                    <row>
+                        <label value="Loan Type:"/>
+                        <label value="@load(vm.loan.loanType)"/>
+                    </row>
+                    <row>
                         <label value="Down Payment:"/>
                         <label value="@load(vm.loan.downPayment)"/>
                     </row>
@@ -36,9 +44,9 @@
                     <row>
                         <label value="Status:"/>
                         <combobox value="@bind(vm.loan.status)">
-                            <comboitem label="Pending"/>
-                            <comboitem label="Approved"/>
-                            <comboitem label="Rejected"/>
+                            <comboitem label="Pending" value="Pending"/>
+                            <comboitem label="Approved" value="Approved"/>
+                            <comboitem label="Rejected" value="Rejected"/>
                         </combobox>
                     </row>
                 </rows>
