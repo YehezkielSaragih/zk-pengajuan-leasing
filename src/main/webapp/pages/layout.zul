@@ -33,7 +33,9 @@
 
             <!-- content -->
             <center sclass="app-content">
-                <include src="@load(vm.page)" mode="instant"/>
+                <include src="@load(vm.page)" mode="instant">
+                    <custom-attributes id="${param.id}" />
+                </include>
             </center>
         </borderlayout>
     </window>

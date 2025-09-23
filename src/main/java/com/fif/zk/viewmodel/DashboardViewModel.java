@@ -5,6 +5,7 @@ import com.fif.zk.service.implementation.CreditorServiceImpl;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.bind.annotation.BindingParam;
+import org.zkoss.zk.ui.Executions;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -51,9 +52,9 @@ public class DashboardViewModel {
 
     @Command
     public void editCreditor(@BindingParam("id") int id) {
-        // buka halaman detail dengan parameter id
-        org.zkoss.zk.ui.Executions.sendRedirect("/pages/layout.zul?page=detail.zul?id=" + id);
+        Executions.sendRedirect("/pages/layout.zul?page=/pages/detail.zul&id=" + id);
     }
+
 
     @Command
     @NotifyChange("showDeleteModal")

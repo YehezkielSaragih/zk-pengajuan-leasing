@@ -16,13 +16,13 @@ public class DetailViewModel {
 
     @Init
     public void init() {
-        // Ambil parameter id dari URL
         String idParam = Executions.getCurrent().getParameter("id");
         if (idParam != null) {
             int id = Integer.parseInt(idParam);
             creditor = CreditorServiceImpl.getInstance().getCreditorById(id);
         }
     }
+
 
     @Command
     public void update() {
