@@ -5,27 +5,32 @@ import org.zkoss.zk.ui.Executions;
 
 public class LayoutViewModel {
     private String page;
-    private boolean isDashboard = false;
-    private boolean isForm = false;
+    private boolean isCreditorDashboard = false;
+    private boolean isLoanDashboard = false;
+    private boolean isCreditorForm = false;
+    private boolean isLoanForm = false;
 
     @Init
     public void init() {
-        // Ambil parameter ?page= dari URL
         String p = Executions.getCurrent().getParameter("page");
         if (p != null && !p.isEmpty()) {
-            // Tambahkan prefix /pages/ jika belum ada
             if (!p.startsWith("/pages/")) {
                 page = "/pages/" + p;
             } else {
                 page = p;
             }
         } else {
-            page = "/pages/dashboard.zul"; // default halaman
+            page = "/pages/creditorDashboard.zul"; // default halaman
         }
-        if (page.contains("dashboard")) {
-            isDashboard = true;
-        } else if (page.contains("form")) {
-            isForm = true;
+
+        if (page.contains("creditorDashboard")) {
+            isCreditorDashboard = true;
+        } else if (page.contains("loanDashboard")) {
+            isLoanDashboard = true;
+        } else if (page.contains("creditorForm")) {
+            isCreditorForm = true;
+        } else if (page.contains("loanForm")) {
+            isLoanForm = true;
         }
     }
 
@@ -33,11 +38,19 @@ public class LayoutViewModel {
         return page;
     }
 
-    public String getDashboardClass() {
-        return isDashboard ? "sidebar-link active" : "sidebar-link";
+    public String getCreditorDashboardClass() {
+        return isCreditorDashboard ? "sidebar-link active" : "sidebar-link";
     }
 
-    public String getFormClass() {
-        return isForm ? "sidebar-link active" : "sidebar-link";
+    public String getLoanDashboardClass() {
+        return isLoanDashboard ? "sidebar-link active" : "sidebar-link";
+    }
+
+    public String getCreditorFormClass() {
+        return isCreditorForm ? "sidebar-link active" : "sidebar-link";
+    }
+
+    public String getLoanFormClass() {
+        return isLoanForm ? "sidebar-link active" : "sidebar-link";
     }
 }

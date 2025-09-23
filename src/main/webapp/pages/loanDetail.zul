@@ -1,4 +1,4 @@
-<?page title="Creditor Detail" contentType="text/html;charset=UTF-8"?>
+<?page title="Loan Detail" contentType="text/html;charset=UTF-8"?>
 <zk xmlns="http://www.zkoss.org/2005/zul">
 
     <style src="/css/style.css"/>
@@ -6,44 +6,36 @@
     <style src="/css/detail.css"/>
 
     <window apply="org.zkoss.bind.BindComposer"
-            viewModel="@id('vm') @init('com.fif.zk.viewmodel.DetailViewModel')"
+            viewModel="@id('vm') @init('com.fif.zk.viewmodel.LoanDetailViewModel')"
             border="none"
             width="100%"
             height="100%"
             sclass="detail-card">
 
         <vlayout spacing="15px">
-            <label value="Creditor Detail" sclass="title-label"/>
+            <label value="Loan Detail" sclass="title-label"/>
 
             <grid>
                 <rows>
                     <row>
-                        <label value="ID:"/>
-                        <label value="@load(vm.creditor.id)"/>
+                        <label value="Loan ID:"/>
+                        <label value="@load(vm.loan.id)"/>
                     </row>
                     <row>
-                        <label value="Name:"/>
-                        <label value="@load(vm.creditor.name)"/>
-                    </row>
-                    <row>
-                        <label value="Age:"/>
-                        <label value="@load(vm.creditor.age)"/>
-                    </row>
-                    <row>
-                        <label value="Income:"/>
-                        <label value="@load(vm.creditor.income)"/>
+                        <label value="Creditor Name:"/>
+                        <label value="@load(vm.loan.creditorName)"/>
                     </row>
                     <row>
                         <label value="Down Payment:"/>
-                        <label value="@load(vm.creditor.downPayment)"/>
+                        <label value="@load(vm.loan.downPayment)"/>
                     </row>
                     <row>
                         <label value="Loan Amount:"/>
-                        <label value="@load(vm.creditor.loanAmount)"/>
+                        <label value="@load(vm.loan.loanAmount)"/>
                     </row>
                     <row>
                         <label value="Status:"/>
-                        <combobox value="@bind(vm.creditor.status)" readonly="true">
+                        <combobox value="@bind(vm.loan.status)">
                             <comboitem label="Pending"/>
                             <comboitem label="Approved"/>
                             <comboitem label="Rejected"/>

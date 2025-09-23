@@ -35,7 +35,7 @@ public class LoginViewModel {
             return;
         }
         if (UserServiceImpl.getInstance().validateUser(user.getEmail(), user.getPassword())) {
-            Executions.sendRedirect("/pages/layout.zul?page=/pages/dashboard.zul");
+            Executions.sendRedirect("/pages/layout.zul?page=/pages/creditorDashboard.zul");
         } else {
             emailError = true;
             passwordError = true;

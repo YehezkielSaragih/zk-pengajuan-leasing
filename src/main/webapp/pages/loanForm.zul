@@ -1,4 +1,4 @@
-<?page title="Input Creditor Data" contentType="text/html;charset=UTF-8"?>
+<?page title="Input Loan Data" contentType="text/html;charset=UTF-8"?>
 <zk xmlns="http://www.zkoss.org/2005/zul">
 
     <style src="/css/style.css"/>
@@ -6,25 +6,21 @@
     <style src="/css/form.css"/>
 
     <window apply="org.zkoss.bind.BindComposer"
-            viewModel="@id('vm') @init('com.fif.zk.viewmodel.FormViewModel')"
+            viewModel="@id('vm') @init('com.fif.zk.viewmodel.LoanFormViewModel')"
             border="none" width="100%" height="100%">
 
         <vlayout spacing="15px" style="padding:20px;">
-            <label value="Input Creditor Data" sclass="page-title"/>
+            <label value="Input Loan Data" sclass="page-title"/>
 
             <grid>
                 <rows>
                     <row>
-                        <label value="Name:"/>
-                        <textbox value="@bind(vm.name)" placeholder="Enter creditor name"/>
-                    </row>
-                    <row>
-                        <label value="Age:"/>
-                        <intbox value="@bind(vm.age)" placeholder="Example: 30"/>
-                    </row>
-                    <row>
-                        <label value="Income:"/>
-                        <doublebox value="@bind(vm.income)" placeholder="Example: 8000000"/>
+                        <label value="Creditor:"/>
+                        <combobox value="@bind(vm.selectedCreditorName)" placeholder="Select creditor" autodrop="true">
+                            <comboitem forEach="@load(vm.creditorNames)"
+                                       label="@load(each)"
+                                       value="@load(each)"/>
+                        </combobox>
                     </row>
                     <row>
                         <label value="Down Payment:"/>

@@ -3,8 +3,10 @@ package com.fif.zk.service.implementation;
 import com.fif.zk.model.Creditor;
 import com.fif.zk.service.CreditorService;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CreditorServiceImpl implements CreditorService {
     private static CreditorServiceImpl instance = new CreditorServiceImpl();
@@ -19,18 +21,9 @@ public class CreditorServiceImpl implements CreditorService {
 
     @Override
     public List<Creditor> getCreditors() {
-        return creditors;
-    }
-
-    @Override
-    public void addCreditor(Creditor creditor) {
-        creditor.setId(nextId++);
-        creditors.add(creditor);
-    }
-
-    @Override
-    public void deleteCreditor(int id) {
-        creditors.removeIf(c -> c.getId() == id);
+        return creditors.stream()
+                .filter(c -> c.getDeletedAt() == null)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -42,12 +35,29 @@ public class CreditorServiceImpl implements CreditorService {
     }
 
     @Override
+    public void addCreditor(Creditor creditor) {
+        creditor.setId(nextId++);
+        creditor.setCreatedAt(LocalDateTime.now());
+        creditor.setUpdatedAt(LocalDateTime.now());
+        creditors.add(creditor);
+    }
+
+    @Override
     public void updateCreditor(Creditor updated) {
         for (int i = 0; i < creditors.size(); i++) {
             if (creditors.get(i).getId().equals(updated.getId())) {
+                updated.setUpdatedAt(LocalDateTime.now());
                 creditors.set(i, updated);
                 break;
             }
         }
+    }
+
+    @Override
+    public void deleteCreditor(int id) {
+        creditors.stream()
+                .filter(c -> c.getId().equals(id))
+                .findFirst()
+                .ifPresent(c -> c.setDeletedAt(LocalDateTime.now()));
     }
 }

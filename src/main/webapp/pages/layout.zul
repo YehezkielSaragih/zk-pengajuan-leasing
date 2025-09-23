@@ -19,12 +19,18 @@
             <!-- sidebar -->
             <west sclass="app-sidebar" splittable="false">
                 <vlayout spacing="10px">
-                    <a href="/pages/layout.zul?page=/pages/dashboard.zul"
-                       label="📄 Dashboard"
-                       sclass="@load(vm.dashboardClass)"/>
-                    <a href="/pages/layout.zul?page=/pages/form.zul"
-                       label="➕ Form"
-                       sclass="@load(vm.formClass)"/>
+                    <a href="/pages/layout.zul?page=creditorDashboard.zul"
+                       label="📄 Creditor Dashboard"
+                       sclass="@load(vm.getCreditorDashboardClass())"/>
+                    <a href="/pages/layout.zul?page=loanDashboard.zul"
+                       label="📄 Loan Dashboard"
+                       sclass="@load(vm.getLoanDashboardClass())"/>
+                    <a href="/pages/layout.zul?page=creditorForm.zul"
+                       label="➕ Creditor Form"
+                       sclass="@load(vm.getCreditorFormClass())"/>
+                    <a href="/pages/layout.zul?page=loanForm.zul"
+                       label="➕ Loan Form"
+                       sclass="@load(vm.getLoanFormClass())"/>
                     <a href="/pages/login.zul"
                        label="🚪 Logout"
                        sclass="sidebar-link"/>

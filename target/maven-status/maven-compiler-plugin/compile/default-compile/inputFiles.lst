@@ -1,12 +1,21 @@
-D:\Learning Material - MT\Developer Class\Frontend\ZKoss\zk-pengajuan-leasing\src\main\java\com\fif\zk\service\CreditorService.java
-D:\Learning Material - MT\Developer Class\Frontend\ZKoss\zk-pengajuan-leasing\src\main\java\com\fif\zk\service\implementation\CreditorServiceImpl.java
-D:\Learning Material - MT\Developer Class\Frontend\ZKoss\zk-pengajuan-leasing\src\main\java\com\fif\zk\service\UserService.java
-D:\Learning Material - MT\Developer Class\Frontend\ZKoss\zk-pengajuan-leasing\src\main\java\com\fif\zk\model\Creditor.java
-D:\Learning Material - MT\Developer Class\Frontend\ZKoss\zk-pengajuan-leasing\src\main\java\com\fif\zk\service\implementation\UserServiceImpl.java
-D:\Learning Material - MT\Developer Class\Frontend\ZKoss\zk-pengajuan-leasing\src\main\java\com\fif\zk\viewmodel\LoginViewModel.java
-D:\Learning Material - MT\Developer Class\Frontend\ZKoss\zk-pengajuan-leasing\src\main\java\com\fif\zk\viewmodel\DetailViewModel.java
-D:\Learning Material - MT\Developer Class\Frontend\ZKoss\zk-pengajuan-leasing\src\main\java\com\fif\zk\viewmodel\LayoutViewModel.java
-D:\Learning Material - MT\Developer Class\Frontend\ZKoss\zk-pengajuan-leasing\src\main\java\com\fif\zk\viewmodel\RegisterViewModel.java
-D:\Learning Material - MT\Developer Class\Frontend\ZKoss\zk-pengajuan-leasing\src\main\java\com\fif\zk\model\User.java
-D:\Learning Material - MT\Developer Class\Frontend\ZKoss\zk-pengajuan-leasing\src\main\java\com\fif\zk\viewmodel\DashboardViewModel.java
-D:\Learning Material - MT\Developer Class\Frontend\ZKoss\zk-pengajuan-leasing\src\main\java\com\fif\zk\viewmodel\FormViewModel.java
+D:\Training\External Training\Developer Fundamental\ZKoss\zk-pengajuan-leasing\zk-pengajuan-leasing\src\main\java\com\fif\zk\viewmodel\LayoutViewModel.java
+D:\Training\External Training\Developer Fundamental\ZKoss\zk-pengajuan-leasing\zk-pengajuan-leasing\src\main\java\com\fif\zk\viewmodel\LoanDashboardViewModel.java
+D:\Training\External Training\Developer Fundamental\ZKoss\zk-pengajuan-leasing\zk-pengajuan-leasing\src\main\java\com\fif\zk\viewmodel\LoanDetailViewModel.java
+D:\Training\External Training\Developer Fundamental\ZKoss\zk-pengajuan-leasing\zk-pengajuan-leasing\src\main\java\com\fif\zk\service\implementation\UserServiceImpl.java
+D:\Training\External Training\Developer Fundamental\ZKoss\zk-pengajuan-leasing\zk-pengajuan-leasing\src\main\java\com\fif\zk\service\UserService.java
+D:\Training\External Training\Developer Fundamental\ZKoss\zk-pengajuan-leasing\zk-pengajuan-leasing\src\main\java\com\fif\zk\viewmodel\CreditorFormViewModel.java
+D:\Training\External Training\Developer Fundamental\ZKoss\zk-pengajuan-leasing\zk-pengajuan-leasing\src\main\java\com\fif\zk\service\CreditorService.java
+D:\Training\External Training\Developer Fundamental\ZKoss\zk-pengajuan-leasing\zk-pengajuan-leasing\src\main\java\com\fif\zk\dto\CreditorDashboardItem.java
+D:\Training\External Training\Developer Fundamental\ZKoss\zk-pengajuan-leasing\zk-pengajuan-leasing\src\main\java\com\fif\zk\service\LoanService.java
+D:\Training\External Training\Developer Fundamental\ZKoss\zk-pengajuan-leasing\zk-pengajuan-leasing\src\main\java\com\fif\zk\dto\LoanDetail.java
+D:\Training\External Training\Developer Fundamental\ZKoss\zk-pengajuan-leasing\zk-pengajuan-leasing\src\main\java\com\fif\zk\model\Creditor.java
+D:\Training\External Training\Developer Fundamental\ZKoss\zk-pengajuan-leasing\zk-pengajuan-leasing\src\main\java\com\fif\zk\model\Loan.java
+D:\Training\External Training\Developer Fundamental\ZKoss\zk-pengajuan-leasing\zk-pengajuan-leasing\src\main\java\com\fif\zk\dto\LoanDashboardItem.java
+D:\Training\External Training\Developer Fundamental\ZKoss\zk-pengajuan-leasing\zk-pengajuan-leasing\src\main\java\com\fif\zk\service\implementation\CreditorServiceImpl.java
+D:\Training\External Training\Developer Fundamental\ZKoss\zk-pengajuan-leasing\zk-pengajuan-leasing\src\main\java\com\fif\zk\service\implementation\LoanServiceImpl.java
+D:\Training\External Training\Developer Fundamental\ZKoss\zk-pengajuan-leasing\zk-pengajuan-leasing\src\main\java\com\fif\zk\viewmodel\LoginViewModel.java
+D:\Training\External Training\Developer Fundamental\ZKoss\zk-pengajuan-leasing\zk-pengajuan-leasing\src\main\java\com\fif\zk\viewmodel\CreditorDashboardViewModel.java
+D:\Training\External Training\Developer Fundamental\ZKoss\zk-pengajuan-leasing\zk-pengajuan-leasing\src\main\java\com\fif\zk\viewmodel\RegisterViewModel.java
+D:\Training\External Training\Developer Fundamental\ZKoss\zk-pengajuan-leasing\zk-pengajuan-leasing\src\main\java\com\fif\zk\viewmodel\LoanFormViewModel.java
+D:\Training\External Training\Developer Fundamental\ZKoss\zk-pengajuan-leasing\zk-pengajuan-leasing\src\main\java\com\fif\zk\viewmodel\CreditorDetailViewModel.java
+D:\Training\External Training\Developer Fundamental\ZKoss\zk-pengajuan-leasing\zk-pengajuan-leasing\src\main\java\com\fif\zk\model\User.java

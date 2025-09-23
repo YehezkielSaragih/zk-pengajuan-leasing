@@ -1,0 +1,60 @@
+<?page title="Creditor Detail" contentType="text/html;charset=UTF-8"?>
+<zk xmlns="http://www.zkoss.org/2005/zul">
+
+    <style src="/css/style.css"/>
+    <style src="/css/layout.css"/>
+    <style src="/css/detail.css"/>
+
+    <window apply="org.zkoss.bind.BindComposer"
+            viewModel="@id('vm') @init('com.fif.zk.viewmodel.CreditorDetailViewModel')"
+            border="none" width="100%" height="100%" sclass="detail-card">
+
+        <vlayout spacing="15px">
+            <label value="Creditor Detail" sclass="title-label"/>
+
+            <grid>
+                <rows>
+                    <row>
+                        <label value="Name:"/>
+                        <label value="@load(vm.creditor.name)" width="300px"/>
+                    </row>
+                    <row>
+                        <label value="Age:"/>
+                        <intbox value="@bind(vm.creditor.age)" placeholder="@load(vm.creditor.age)" width="150px"/>
+                    </row>
+                    <row>
+                        <label value="Address:"/>
+                        <textbox value="@bind(vm.creditor.address)" placeholder="@load(vm.creditor.address)" width="300px"/>
+                    </row>
+                    <row>
+                        <label value="Income:"/>
+                        <doublebox value="@bind(vm.creditor.income)" placeholder="@load(vm.creditor.income)" width="200px"/>
+                    </row>
+
+                    <!-- Loan Summary (readonly) -->
+                    <row>
+                        <label value="Total Loans:"/>
+                        <label value="@load(vm.totalLoans)"/>
+                    </row>
+                    <row>
+                        <label value="Pending Loans:"/>
+                        <label value="@load(vm.pendingLoans)"/>
+                    </row>
+                    <row>
+                        <label value="Approved Loans:"/>
+                        <label value="@load(vm.approvedLoans)"/>
+                    </row>
+                    <row>
+                        <label value="Rejected Loans:"/>
+                        <label value="@load(vm.rejectedLoans)"/>
+                    </row>
+                </rows>
+            </grid>
+
+            <hlayout spacing="15px" sclass="buttons">
+                <button label="Save" onClick="@command('save')"/>
+                <button label="Back" onClick="@command('back')"/>
+            </hlayout>
+        </vlayout>
+    </window>
+</zk>

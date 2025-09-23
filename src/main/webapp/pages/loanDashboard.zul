@@ -1,0 +1,80 @@
+<?page title="Loan Dashboard" contentType="text/html;charset=UTF-8"?>
+<zk xmlns="http://www.zkoss.org/2005/zul">
+
+    <style src="/css/style.css"/>
+    <style src="/css/layout.css"/>
+    <style src="/css/dashboard.css"/>
+
+    <window id="loanDashboardWindow" apply="org.zkoss.bind.BindComposer"
+            viewModel="@id('vm') @init('com.fif.zk.viewmodel.LoanDashboardViewModel')"
+            border="none" width="100%" height="100%">
+
+        <vlayout sclass="dashboard-container" spacing="10px">
+            <label value="List of Loans" sclass="page-title"/>
+
+            <hlayout spacing="10px">
+                <!-- Input filter creditor name -->
+                <textbox placeholder="Search by Creditor Name" sclass="filter-box"
+                         value="@bind(vm.filterText)" onOK="@command('filter')"/>
+
+                <!-- Dropdown filter status -->
+                <combobox sclass="status-filter" value="@bind(vm.filterStatus)" onChange="@command('filter')">
+                    <comboitem label="All" value="All"/>
+                    <comboitem label="Pending" value="Pending"/>
+                    <comboitem label="Approved" value="Approved"/>
+                    <comboitem label="Rejected" value="Rejected"/>
+                </combobox>
+
+                <!-- Remove filter -->
+                <button label="Remove Filter" sclass="remove-filter" onClick="@command('clearFilter')"/>
+            </hlayout>
+
+            <!-- Listbox -->
+            <listbox model="@bind(vm.filteredLoans)" width="100%" mold="paging" pageSize="5" sclass="listbox">
+                <listhead class="listhead">
+                    <listheader label="Loan ID"/>
+                    <listheader label="Creditor Name"/>
+                    <listheader label="Loan Amount"/>
+                    <listheader label="Status"/>
+                    <listheader label="Action"/>
+                </listhead>
+
+                <template name="model">
+                    <listitem>
+                        <listcell label="@load(each.loanId)"/>
+                        <listcell label="@load(each.creditorName)"/>
+                        <listcell label="@load(each.loanAmount)"/>
+                        <listcell>
+                            <label value="@load(each.status)" sclass="status-badge
+                        ${each.status == 'Pending' ? 'pending' :
+                          each.status == 'Approved' ? 'approved' :
+                          each.status == 'Rejected' ? 'rejected' : 'survey'}"/>
+                        </listcell>
+                        <listcell>
+                            <hlayout spacing="5px">
+                                <button label="Edit" sclass="action-button"
+                                        onClick="@command('editLoan', id=each.loanId)"/>
+                                <button label="Delete" sclass="action-button"
+                                        onClick="@command('showDeleteModal', id=each.loanId)"/>
+                            </hlayout>
+                        </listcell>
+                    </listitem>
+                </template>
+            </listbox>
+        </vlayout>
+
+        <!-- Custom Delete Modal -->
+        <window id="deleteModal" title="Confirm Delete" border="normal" width="300px"
+                closable="false" visible="@bind(vm.showDeleteModal)" position="center"
+                mode="modal" sclass="confirm-modal">
+            <vlayout spacing="15px" style="padding: 15px; align-items:center;">
+                <label value="Are you sure you want to delete this loan?" sclass="modal-text"/>
+                <hlayout spacing="15px" style="justify-content:center;">
+                    <button label="Yes" onClick="@command('confirmDelete')" sclass="modal-yes"/>
+                    <button label="No" onClick="@command('cancelDelete')" sclass="modal-no"/>
+                </hlayout>
+            </vlayout>
+        </window>
+
+    </window>
+</zk>
