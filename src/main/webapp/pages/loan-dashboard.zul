@@ -35,6 +35,10 @@
                     <comboitem label="Electronic" value="Electronic"/>
                 </combobox>
                 <button label="Remove Filter" sclass="remove-filter" onClick="@command('clearFilter')"/>
+
+                <div hflex="1"/>
+
+                <button label="Add Loan" sclass="add-loan" onClick="@command('goToAddLoan')"/>
             </hlayout>
 
             <!-- Loan List -->

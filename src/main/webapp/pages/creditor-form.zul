@@ -38,6 +38,7 @@
 
             <hlayout style="justify-content:flex-start; margin-top:10px;">
                 <button label="Save" onClick="@command('save')"/>
+                <button label="Back" onClick="@command('back')"/>
             </hlayout>
         </vlayout>
     </window>

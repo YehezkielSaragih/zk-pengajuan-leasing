@@ -17,6 +17,10 @@
                 <textbox placeholder="Search by Name" sclass="filter-box"
                          value="@bind(vm.filterText)" onOK="@command('filter')"/>
                 <button label="Remove Filter" sclass="remove-filter" onClick="@command('clearFilter')"/>
+
+                <div hflex="1"/>
+
+                <button label="Add Creditor" sclass="add-creditor" onClick="@command('goToAddCreditor')"/>
             </hlayout>
 
             <!-- Creditor List -->

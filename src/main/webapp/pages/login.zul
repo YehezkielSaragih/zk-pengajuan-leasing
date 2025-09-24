@@ -6,7 +6,9 @@
     <style src="/css/auth.css"/>
 
     <vlayout hflex="1" vflex="1" sclass="login-page">
-        <window width="420px" border="normal" closable="false"
+        <window apply="org.zkoss.bind.BindComposer"
+                viewModel="@id('vm') @init('com.fif.zk.viewmodel.LoginViewModel')"
+                width="420px" border="normal" closable="false"
                 sclass="login-container">
 
             <vlayout spacing="20px">
@@ -40,7 +42,9 @@
                 </n:form>
 
                 <!-- Link to Register -->
-                <label value="Don’t have an account? Register" onClick="@command('goToRegister')" sclass="login-link"/>
+                <n:a href="/zk-pengajuan-leasing/pages/register.zul" sclass="login-link">
+                    Don’t have an account? Register
+                </n:a>
             </vlayout>
         </window>
     </vlayout>

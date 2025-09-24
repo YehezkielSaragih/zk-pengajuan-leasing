@@ -5,13 +5,11 @@ import com.fif.zk.model.Creditor;
 import com.fif.zk.service.CreditorService;
 import com.fif.zk.service.LoanService;
 import org.springframework.stereotype.Component;
-import org.zkoss.bind.annotation.BindingParam;
-import org.zkoss.bind.annotation.Command;
-import org.zkoss.bind.annotation.Init;
-import org.zkoss.bind.annotation.NotifyChange;
+import org.zkoss.bind.annotation.*;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
+import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zkplus.spring.DelegatingVariableResolver;
 
 import java.util.Comparator;
@@ -42,6 +40,14 @@ public class LoanDashboardViewModel {
     @Init
     public void init() {
         filteredLoans = loadDashboardItems();
+    }
+
+    @AfterCompose
+    public void afterCompose(@BindingParam("comp") Component comp) {
+        String success = Executions.getCurrent().getParameter("success");
+        if ("true".equals(success)) {
+            Clients.showNotification("Loan saved successfully!", "info", null, "top_right", 3000);
+        }
     }
 
     // --- Getters & Setters ---
@@ -128,5 +134,10 @@ public class LoanDashboardViewModel {
     public void cancelDelete() {
         deletingId = -1;
         showDeleteModal = false;
+    }
+
+    @Command
+    public void goToAddLoan() {
+        Executions.sendRedirect("/pages/layout.zul?page=loan-form.zul");
     }
 }

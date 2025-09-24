@@ -6,13 +6,11 @@ import com.fif.zk.model.Creditor;
 import com.fif.zk.model.Loan;
 import com.fif.zk.service.CreditorService;
 import com.fif.zk.service.LoanService;
-import org.zkoss.bind.annotation.BindingParam;
-import org.zkoss.bind.annotation.Command;
-import org.zkoss.bind.annotation.Init;
-import org.zkoss.bind.annotation.NotifyChange;
+import org.zkoss.bind.annotation.*;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
+import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zkplus.spring.DelegatingVariableResolver;
 import org.springframework.stereotype.Component;
 
@@ -43,10 +41,17 @@ public class CreditorDashboardViewModel {
     private String selectedCreditorName;
     private List<LoanDashboardResponse> selectedLoans = new ArrayList<>();
 
-    // --- Init ---
     @Init
     public void init() {
         filteredCreditors = loadDashboardItems();
+    }
+
+    @AfterCompose
+    public void afterCompose(@BindingParam("comp") Component comp) {
+        String success = Executions.getCurrent().getParameter("success");
+        if ("true".equals(success)) {
+            Clients.showNotification("Creditor saved successfully!", "info", null, "top_right", 3000);
+        }
     }
 
     // --- Getters & Setters ---
@@ -158,10 +163,14 @@ public class CreditorDashboardViewModel {
         }
     }
 
-
     @Command
     @NotifyChange("showLoanModal")
     public void closeLoanModal() {
         showLoanModal = false;
+    }
+
+    @Command
+    public void goToAddCreditor() {
+        Executions.sendRedirect("/pages/layout.zul?page=creditor-form.zul");
     }
 }

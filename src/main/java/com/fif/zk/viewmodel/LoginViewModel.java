@@ -3,11 +3,14 @@ package com.fif.zk.viewmodel;
 import com.fif.zk.model.User;
 import com.fif.zk.service.UserService;
 import org.springframework.stereotype.Component;
+import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.Command;
+import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
+import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zkplus.spring.DelegatingVariableResolver;
 
 @Component
@@ -34,6 +37,14 @@ public class LoginViewModel {
 
     public void setEmailError(boolean emailError) { this.emailError = emailError; }
     public void setPasswordError(boolean passwordError) { this.passwordError = passwordError; }
+
+    @AfterCompose
+    public void afterCompose(Component view) {
+        String error = Executions.getCurrent().getParameter("error");
+        if (error != null) {
+            Clients.showNotification("Email atau Password Invalid!", "error", null, "top_right", 3000);
+        }
+    }
 
     // --- Commands ---
     @Command
@@ -62,10 +73,5 @@ public class LoginViewModel {
             emailError = true;
             passwordError = true;
         }
-    }
-
-    @Command
-    public void goToRegister() {
-        Executions.sendRedirect("/pages/register.zul");
     }
 }

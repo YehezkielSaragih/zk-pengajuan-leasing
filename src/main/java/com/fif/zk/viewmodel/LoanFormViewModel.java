@@ -71,23 +71,23 @@ public class LoanFormViewModel {
     @Command
     public void save() {
         if (selectedCreditor == null) {
-            Clients.showNotification("Please select a creditor!", "error", null, "middle_center", 3000);
+            Clients.showNotification("Please select a creditor!", "error", null, "top_right", 3000);
             return;
         }
         if (loanName == null || loanName.isEmpty()) {
-            Clients.showNotification("Please enter a loan name!", "error", null, "middle_center", 3000);
+            Clients.showNotification("Please enter a loan name!", "error", null, "top_right", 3000);
             return;
         }
         if (loanType == null || loanType.isEmpty()) {
-            Clients.showNotification("Please enter a loan type!", "error", null, "middle_center", 3000);
+            Clients.showNotification("Please enter a loan type!", "error", null, "top_right", 3000);
             return;
         }
         if (downPayment == null) {
-            Clients.showNotification("Down payment must be filled!", "error", null, "middle_center", 3000);
+            Clients.showNotification("Down payment must be filled!", "error", null, "top_right", 3000);
             return;
         }
         if (loanAmount == null || loanAmount <= 0) {
-            Clients.showNotification("Please enter a valid loan amount!", "error", null, "middle_center", 3000);
+            Clients.showNotification("Please enter a valid loan amount!", "error", null, "top_right", 3000);
             return;
         }
 
@@ -95,14 +95,14 @@ public class LoanFormViewModel {
         if (downPayment < minDP) {
             Clients.showNotification(
                     "Down payment must be at least 30% of total loan (" + (int) minDP + ")!",
-                    "error", null, "middle_center", 4000
+                    "error", null, "top_right", 4000
             );
             return;
         }
         if (downPayment >= loanAmount) {
             Clients.showNotification(
                     "Down payment must be less than total loan!",
-                    "error", null, "middle_center", 4000
+                    "error", null, "top_right", 4000
             );
             return;
         }
@@ -119,7 +119,11 @@ public class LoanFormViewModel {
         loanService.addLoan(loan);
         creditorService.updateCreditor(selectedCreditor);
 
-        Clients.showNotification("Loan saved successfully!", "info", null, "top_center", 2000);
+        Executions.sendRedirect("layout.zul?page=loan-dashboard.zul&success=true");
+    }
+
+    @Command
+    public void back() {
         Executions.sendRedirect("layout.zul?page=loan-dashboard.zul");
     }
 }

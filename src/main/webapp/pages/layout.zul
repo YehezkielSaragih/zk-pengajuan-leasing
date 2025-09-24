@@ -25,12 +25,6 @@
                     <a href="/pages/layout.zul?page=loan-dashboard.zul"
                        label="📄 Loan Dashboard"
                        sclass="@load(vm.getLoanDashboardClass())"/>
-                    <a href="/pages/layout.zul?page=creditor-form.zul"
-                       label="➕ Creditor Form"
-                       sclass="@load(vm.getCreditorFormClass())"/>
-                    <a href="/pages/layout.zul?page=loan-form.zul"
-                       label="➕ Loan Form"
-                       sclass="@load(vm.getLoanFormClass())"/>
                     <a href="/logout"
                        label="🚪 Logout"
                        sclass="sidebar-link"/>
