@@ -1,5 +1,6 @@
 package com.fif.zk.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -11,7 +12,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final UserDetailsService userDetailsService;
+    @Autowired
+    private UserDetailsService userDetailsService;
 
     public SecurityConfig(UserDetailsService userDetailsService) {
         this.userDetailsService = userDetailsService;
@@ -21,7 +23,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                    .antMatchers("/login.zul", "/register.zul", "/css/**", "/js/**", "/images/**").permitAll()
+                    .antMatchers("/pages/login.zul", "/pages/register.zul", "/css/**", "/js/**", "/images/**").permitAll()
                     .antMatchers(
                             "/pages/layout.zul?page=creditor-dashboard.zul",
                             "/pages/layout.zul?page=creditor-form.zul"
@@ -35,13 +37,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .anyRequest().authenticated()
                 .and()
                     .formLogin()
-                    .loginPage("/login.zul")
+                    .loginPage("/pages/login.zul")
                     .defaultSuccessUrl("/pages/layout.zul?page=creditor-dashboard.zul", true)
                     .permitAll()
                 .and()
                     .logout()
                     .logoutUrl("/logout")
-                    .logoutSuccessUrl("/login.zul")
+                    .logoutSuccessUrl("/pages/login.zul")
                     .permitAll()
                 .and()
                     .exceptionHandling()
