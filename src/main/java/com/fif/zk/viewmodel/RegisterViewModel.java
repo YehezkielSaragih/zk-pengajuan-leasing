@@ -72,6 +72,11 @@ public class RegisterViewModel {
 
         if (!valid) return;
 
+        // set default role
+        if (user.getRole() == null || user.getRole().trim().isEmpty()) {
+            user.setRole("ADMIN");
+        }
+
         // persist user & redirect
         userService.addUser(user);
         Executions.sendRedirect("/pages/login.zul");
