@@ -10,6 +10,30 @@
             border="none" width="100%" height="100%">
 
         <vlayout sclass="dashboard-container" spacing="10px">
+
+            <hlayout spacing="20px" sclass="dashboard-summary">
+                <vlayout sclass="summary-card">
+                    <label value="Total Loans" sclass="summary-title"/>
+                    <label value="@bind(vm.totalLoans)" sclass="summary-value"/>
+                </vlayout>
+                <vlayout sclass="summary-card">
+                    <label value="Approved Loans" sclass="summary-title"/>
+                    <label value="@bind(vm.approvedLoans)" sclass="summary-value"/>
+                </vlayout>
+                <vlayout sclass="summary-card">
+                    <label value="Pending Loans" sclass="summary-title"/>
+                    <label value="@bind(vm.pendingLoans)" sclass="summary-value"/>
+                </vlayout>
+                <vlayout sclass="summary-card">
+                    <label value="Rejected Loans" sclass="summary-title"/>
+                    <label value="@bind(vm.rejectedLoans)" sclass="summary-value"/>
+                </vlayout>
+                <vlayout sclass="summary-card">
+                    <label value="Total Loan Amount" sclass="summary-title"/>
+                    <label value="@bind(vm.totalLoanAmountFormatted)" sclass="summary-value"/>
+                </vlayout>
+            </hlayout>
+
             <label value="List of Loans" sclass="page-title"/>
 
             <!-- Filters -->

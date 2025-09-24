@@ -12,8 +12,10 @@ import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zkplus.spring.DelegatingVariableResolver;
 
+import java.text.NumberFormat;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 @Component
@@ -65,6 +67,27 @@ public class LoanDashboardViewModel {
     public int getDeletingId() { return deletingId; }
     public boolean isShowDeleteModal() { return showDeleteModal; }
 
+    // --- Summary Fields ---
+    public int getTotalLoans() { return filteredLoans.size(); }
+
+    public int getApprovedLoans() {
+        return (int) filteredLoans.stream().filter(l -> "Approved".equalsIgnoreCase(l.getStatus())).count();
+    }
+
+    public int getPendingLoans() {
+        return (int) filteredLoans.stream().filter(l -> "Pending".equalsIgnoreCase(l.getStatus())).count();
+    }
+
+    public int getRejectedLoans() {
+        return (int) filteredLoans.stream().filter(l -> "Rejected".equalsIgnoreCase(l.getStatus())).count();
+    }
+
+    public String getTotalLoanAmountFormatted() {
+        int totalAmount = filteredLoans.stream().mapToInt(LoanDashboardResponse::getLoanAmount).sum();
+        NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("id", "ID"));
+        return nf.format(totalAmount);
+    }
+
     // --- Private Helpers ---
     private List<LoanDashboardResponse> loadDashboardItems() {
         return loanService.getLoans().stream()
@@ -86,7 +109,7 @@ public class LoanDashboardViewModel {
 
     // --- Commands ---
     @Command
-    @NotifyChange("filteredLoans")
+    @NotifyChange({"filteredLoans", "totalLoans", "approvedLoans", "pendingLoans", "rejectedLoans", "totalLoanAmountFormatted"})
     public void filter() {
         filteredLoans = loadDashboardItems().stream()
                 .filter(l -> (filterText.isEmpty()
@@ -98,7 +121,8 @@ public class LoanDashboardViewModel {
     }
 
     @Command
-    @NotifyChange({"filteredLoans", "filterText", "filterStatus", "filterType"})
+    @NotifyChange({"filteredLoans", "filterText", "filterStatus", "filterType",
+            "totalLoans", "approvedLoans", "pendingLoans", "rejectedLoans", "totalLoanAmountFormatted"})
     public void clearFilter() {
         filterText = "";
         filterStatus = "All Status";
@@ -119,7 +143,7 @@ public class LoanDashboardViewModel {
     }
 
     @Command
-    @NotifyChange({"filteredLoans", "showDeleteModal"})
+    @NotifyChange({"filteredLoans", "showDeleteModal", "totalLoans", "approvedLoans", "pendingLoans", "rejectedLoans", "totalLoanAmountFormatted"})
     public void confirmDelete() {
         if (deletingId != -1) {
             loanService.deleteLoan(deletingId);
