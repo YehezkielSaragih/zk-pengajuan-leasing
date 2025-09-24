@@ -1,45 +1,69 @@
 package com.fif.zk.viewmodel;
 
-import com.fif.zk.model.Creditor;
-import com.fif.zk.service.implementation.CreditorServiceImpl;
-import com.fif.zk.service.implementation.LoanServiceImpl;
 import com.fif.zk.dto.LoanDashboardResponse;
-import org.zkoss.bind.annotation.Command;
-import org.zkoss.bind.annotation.NotifyChange;
+import com.fif.zk.model.Creditor;
+import com.fif.zk.service.CreditorService;
+import com.fif.zk.service.LoanService;
+import org.springframework.stereotype.Component;
 import org.zkoss.bind.annotation.BindingParam;
+import org.zkoss.bind.annotation.Command;
+import org.zkoss.bind.annotation.Init;
+import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.select.annotation.VariableResolver;
+import org.zkoss.zk.ui.select.annotation.WireVariable;
+import org.zkoss.zkplus.spring.DelegatingVariableResolver;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Component
+@VariableResolver(DelegatingVariableResolver.class)
 public class LoanDashboardViewModel {
 
+    // --- Filters ---
     private String filterText = "";
     private String filterStatus = "All Status";
     private String filterType = "All Loan Type";
-    private List<LoanDashboardResponse> filteredLoans;
 
+    // --- State ---
+    private List<LoanDashboardResponse> filteredLoans;
     private int deletingId = -1;
     private boolean showDeleteModal = false;
 
-    public LoanDashboardViewModel() {
+    // --- Services ---
+    @WireVariable("creditorServiceImpl")
+    private CreditorService creditorService;
+
+    @WireVariable("loanServiceImpl")
+    private LoanService loanService;
+
+    @Init
+    public void init() {
         filteredLoans = loadDashboardItems();
     }
+
+    // --- Getters & Setters ---
+    public String getFilterText() { return filterText; }
+    public void setFilterText(String filterText) { this.filterText = filterText; }
+
+    public String getFilterStatus() { return filterStatus; }
+    public void setFilterStatus(String filterStatus) { this.filterStatus = filterStatus; }
+
     public String getFilterType() { return filterType; }
     public void setFilterType(String filterType) { this.filterType = filterType; }
 
     public List<LoanDashboardResponse> getFilteredLoans() { return filteredLoans; }
-    public String getFilterText() { return filterText; }
-    public void setFilterText(String filterText) { this.filterText = filterText; }
-    public String getFilterStatus() { return filterStatus; }
-    public void setFilterStatus(String filterStatus) { this.filterStatus = filterStatus; }
+
     public int getDeletingId() { return deletingId; }
     public boolean isShowDeleteModal() { return showDeleteModal; }
 
+    // --- Private Helpers ---
     private List<LoanDashboardResponse> loadDashboardItems() {
-        return LoanServiceImpl.getInstance().getLoans().stream()
+        return loanService.getLoans().stream()
                 .map(l -> {
-                    Creditor c = CreditorServiceImpl.getInstance().getCreditorById(l.getCreditor().getId());
+                    Creditor c = creditorService.getCreditorById(l.getCreditor().getId());
                     return new LoanDashboardResponse(
                             l.getId(),
                             c != null ? c.getName() : "Unknown",
@@ -50,9 +74,11 @@ public class LoanDashboardViewModel {
                             l.getStatus()
                     );
                 })
+                .sorted(Comparator.comparing(LoanDashboardResponse::getLoanId))
                 .collect(Collectors.toList());
     }
 
+    // --- Commands ---
     @Command
     @NotifyChange("filteredLoans")
     public void filter() {
@@ -61,12 +87,12 @@ public class LoanDashboardViewModel {
                         || l.getCreditorName().toLowerCase().contains(filterText.toLowerCase())
                         || String.valueOf(l.getLoanId()).contains(filterText)))
                 .filter(l -> filterStatus.equals("All Status") || l.getStatus().equalsIgnoreCase(filterStatus))
-                .filter(l -> filterType.equals("All Loan Type") || l.getLoanType().equalsIgnoreCase(filterType)) //
+                .filter(l -> filterType.equals("All Loan Type") || l.getLoanType().equalsIgnoreCase(filterType))
                 .collect(Collectors.toList());
     }
 
     @Command
-    @NotifyChange({"filteredLoans", "filterText", "filterStatus"})
+    @NotifyChange({"filteredLoans", "filterText", "filterStatus", "filterType"})
     public void clearFilter() {
         filterText = "";
         filterStatus = "All Status";
@@ -90,7 +116,7 @@ public class LoanDashboardViewModel {
     @NotifyChange({"filteredLoans", "showDeleteModal"})
     public void confirmDelete() {
         if (deletingId != -1) {
-            LoanServiceImpl.getInstance().deleteLoan(deletingId);
+            loanService.deleteLoan(deletingId);
             filter(); // refresh list
         }
         deletingId = -1;

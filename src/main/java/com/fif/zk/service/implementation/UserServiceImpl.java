@@ -3,45 +3,42 @@ package com.fif.zk.service.implementation;
 import com.fif.zk.model.User;
 import com.fif.zk.repository.UserRepository;
 import com.fif.zk.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class UserServiceImpl implements UserService {
 
-    private static UserServiceImpl instance = new UserServiceImpl();
-    private UserRepository userRepository = UserRepository.getInstance();
-
-    private UserServiceImpl() {}
-
-    public static UserServiceImpl getInstance() {
-        return instance;
-    }
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
     public void addUser(User user) {
-        // createdAt and updatedAt are set in User constructor
-        userRepository.addUser(user);
+        userRepository.save(user); // JPA save
     }
 
     @Override
     public List<User> getUsers() {
-        return userRepository.getUsers();
+        return userRepository.findAll(); // JPA findAll
     }
 
     @Override
     public User getUserByEmail(String email) {
-        return userRepository.getUserByEmail(email);
+        return userRepository.findByEmailAndDeletedAtIsNull(email)
+                .orElse(null); // pakai Optional dari repo
     }
 
     @Override
     public boolean validateUser(String email, String password) {
-        User user = userRepository.getUserByEmail(email);
-        if (user == null) return false;
-        return user.getPassword().equals(password); // ideally use hashed password comparison
+        return userRepository.findByEmailAndDeletedAtIsNull(email)
+                .map(u -> u.getPassword().equals(password))
+                .orElse(false);
     }
 
     @Override
     public boolean existsEmail(String email) {
-        return userRepository.existsEmail(email);
+        return userRepository.existsByEmail(email); // JPA exists
     }
 }

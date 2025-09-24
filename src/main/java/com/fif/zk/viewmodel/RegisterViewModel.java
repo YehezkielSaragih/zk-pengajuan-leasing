@@ -2,40 +2,54 @@ package com.fif.zk.viewmodel;
 
 import com.fif.zk.model.User;
 import com.fif.zk.service.UserService;
-import com.fif.zk.service.implementation.UserServiceImpl;
+import org.springframework.stereotype.Component;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.select.annotation.VariableResolver;
+import org.zkoss.zk.ui.select.annotation.WireVariable;
+import org.zkoss.zkplus.spring.DelegatingVariableResolver;
 
+@Component
+@VariableResolver(DelegatingVariableResolver.class)
 public class RegisterViewModel {
 
+    // --- Data fields ---
     private User user = new User();
     private String confirmPassword;
 
-    public User getUser() { return user; }
-    public void setUser(User user) { this.user = user; }
-    public String getConfirmPassword() { return confirmPassword; }
-    public void setConfirmPassword(String confirmPassword) { this.confirmPassword = confirmPassword; }
-
+    // --- Error flags ---
     private boolean emailError = false;
     private boolean passwordError = false;
     private boolean confirmError = false;
+
+    // --- Service ---
+    @WireVariable("userServiceImpl")
+    private UserService userService;
+
+    // --- Getters & Setters ---
+    public User getUser() { return user; }
+    public void setUser(User user) { this.user = user; }
+
+    public String getConfirmPassword() { return confirmPassword; }
+    public void setConfirmPassword(String confirmPassword) { this.confirmPassword = confirmPassword; }
 
     public boolean isEmailError() { return emailError; }
     public boolean isPasswordError() { return passwordError; }
     public boolean isConfirmError() { return confirmError; }
 
-    private final UserService userService = UserServiceImpl.getInstance();
-
+    // --- Commands ---
     @Command
     @NotifyChange({"emailError", "passwordError", "confirmError"})
     public void register() {
+        // reset errors
         emailError = false;
         passwordError = false;
         confirmError = false;
 
         boolean valid = true;
 
+        // validate email
         if (user.getEmail() == null || user.getEmail().trim().isEmpty()) {
             emailError = true;
             valid = false;
@@ -44,11 +58,13 @@ public class RegisterViewModel {
             valid = false;
         }
 
+        // validate password
         if (user.getPassword() == null || user.getPassword().trim().isEmpty()) {
             passwordError = true;
             valid = false;
         }
 
+        // validate confirm password
         if (!user.getPassword().equals(confirmPassword)) {
             confirmError = true;
             valid = false;
@@ -56,6 +72,7 @@ public class RegisterViewModel {
 
         if (!valid) return;
 
+        // persist user & redirect
         userService.addUser(user);
         Executions.sendRedirect("/pages/login.zul");
     }

@@ -1,8 +1,13 @@
 package com.fif.zk.viewmodel;
 
+import org.springframework.stereotype.Component;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.select.annotation.VariableResolver;
+import org.zkoss.zkplus.spring.DelegatingVariableResolver;
 
+@Component
+@VariableResolver(DelegatingVariableResolver.class)
 public class LayoutViewModel {
 
     private String page;

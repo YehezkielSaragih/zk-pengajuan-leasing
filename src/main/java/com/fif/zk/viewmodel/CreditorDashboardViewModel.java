@@ -3,47 +3,73 @@ package com.fif.zk.viewmodel;
 import com.fif.zk.dto.CreditorDashboardResponse;
 import com.fif.zk.model.Creditor;
 import com.fif.zk.model.Loan;
-import com.fif.zk.service.implementation.CreditorServiceImpl;
-import com.fif.zk.service.implementation.LoanServiceImpl;
+import com.fif.zk.service.CreditorService;
+import com.fif.zk.service.LoanService;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
+import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.select.annotation.VariableResolver;
+import org.zkoss.zk.ui.select.annotation.WireVariable;
+import org.zkoss.zkplus.spring.DelegatingVariableResolver;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Component
+@VariableResolver(DelegatingVariableResolver.class)
 public class CreditorDashboardViewModel {
 
+    // --- Services ---
+    @WireVariable("creditorServiceImpl")
+    private CreditorService creditorService;
+
+    @WireVariable("loanServiceImpl")
+    private LoanService loanService;
+
+    // --- Fields ---
     private String filterText = "";
     private List<CreditorDashboardResponse> filteredCreditors;
 
     private int deletingId = -1;
     private boolean showDeleteModal = false;
 
-    public CreditorDashboardViewModel() {
+    private boolean showLoanModal = false;
+    private String selectedCreditorName;
+    private List<Loan> selectedLoans = new ArrayList<>();
+
+    // --- Init ---
+    @Init
+    public void init() {
         filteredCreditors = loadDashboardItems();
     }
 
+    // --- Getters & Setters ---
     public List<CreditorDashboardResponse> getFilteredCreditors() { return filteredCreditors; }
     public String getFilterText() { return filterText; }
     public void setFilterText(String filterText) { this.filterText = filterText; }
     public int getDeletingId() { return deletingId; }
     public boolean isShowDeleteModal() { return showDeleteModal; }
+    public boolean isShowLoanModal() { return showLoanModal; }
+    public String getSelectedCreditorName() { return selectedCreditorName; }
+    public List<Loan> getSelectedLoans() { return selectedLoans; }
 
+    // --- Private Methods ---
     private List<CreditorDashboardResponse> loadDashboardItems() {
-        return CreditorServiceImpl.getInstance().getCreditors().stream()
+        return creditorService.getCreditors().stream()
                 .map(c -> {
-                    List<Loan> loans = LoanServiceImpl.getInstance().getLoansByCreditorId(c.getId())
+                    List<Loan> loans = loanService.getLoansByCreditorId(c.getId())
                             .stream()
-                            .filter(l -> l.getDeletedAt() == null)  // exclude soft-deleted
+                            .filter(l -> l.getDeletedAt() == null) // exclude soft-deleted
                             .collect(Collectors.toList());
 
                     long active = loans.stream().filter(l -> "Approved".equalsIgnoreCase(l.getStatus())).count();
                     long rejected = loans.stream().filter(l -> "Rejected".equalsIgnoreCase(l.getStatus())).count();
                     long pending = loans.stream().filter(l -> "Pending".equalsIgnoreCase(l.getStatus())).count();
-
 
                     return new CreditorDashboardResponse(
                             c.getId(),
@@ -54,10 +80,11 @@ public class CreditorDashboardViewModel {
                             pending
                     );
                 })
+                .sorted(Comparator.comparing(CreditorDashboardResponse::getId))
                 .collect(Collectors.toList());
     }
 
-    // === Commands ===
+    // --- Commands ---
     @Command
     @NotifyChange("filteredCreditors")
     public void filter() {
@@ -91,7 +118,7 @@ public class CreditorDashboardViewModel {
     @NotifyChange({"filteredCreditors", "showDeleteModal"})
     public void confirmDelete() {
         if (deletingId != -1) {
-            CreditorServiceImpl.getInstance().deleteCreditor(deletingId);
+            creditorService.deleteCreditor(deletingId);
             filter(); // refresh list
         }
         deletingId = -1;
@@ -105,26 +132,17 @@ public class CreditorDashboardViewModel {
         showDeleteModal = false;
     }
 
-    private boolean showLoanModal = false;
-    private String selectedCreditorName;
-    private List<Loan> selectedLoans = new ArrayList<>();
-
-    public boolean isShowLoanModal() { return showLoanModal; }
-    public String getSelectedCreditorName() { return selectedCreditorName; }
-    public List<Loan> getSelectedLoans() { return selectedLoans; }
-
     @Command
     @NotifyChange({"showLoanModal", "selectedLoans", "selectedCreditorName"})
     public void viewLoans(@BindingParam("id") int creditorId) {
-        // ambil creditor
-        Creditor c = CreditorServiceImpl.getInstance().getCreditors().stream()
+        Creditor c = creditorService.getCreditors().stream()
                 .filter(cred -> cred.getId() == creditorId)
                 .findFirst()
                 .orElse(null);
 
         if (c != null) {
             selectedCreditorName = c.getName();
-            selectedLoans = LoanServiceImpl.getInstance().getLoansByCreditorId(c.getId())
+            selectedLoans = loanService.getLoansByCreditorId(c.getId())
                     .stream()
                     .filter(l -> l.getDeletedAt() == null)
                     .collect(Collectors.toList());

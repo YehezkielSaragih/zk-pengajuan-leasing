@@ -3,28 +3,31 @@ package com.fif.zk.service.implementation;
 import com.fif.zk.model.Creditor;
 import com.fif.zk.repository.CreditorRepository;
 import com.fif.zk.service.CreditorService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
+@Service
 public class CreditorServiceImpl implements CreditorService {
 
-    private static CreditorServiceImpl instance = new CreditorServiceImpl();
-    private CreditorRepository repository = CreditorRepository.getInstance();
-
-    private CreditorServiceImpl() {}
-
-    public static CreditorServiceImpl getInstance() {
-        return instance;
-    }
+    @Autowired
+    private CreditorRepository repository;
 
     @Override
     public List<Creditor> getCreditors() {
-        return repository.findAll();
+        // filter kalau ada soft delete (misalnya pakai field deletedAt di Creditor)
+        return repository.findAll()
+                .stream()
+                .filter(c -> c.getDeletedAt() == null)
+                .collect(Collectors.toList());
     }
 
     @Override
     public Creditor getCreditorById(int id) {
-        return repository.findById(id);
+        return repository.findById(id).orElse(null);
     }
 
     @Override
@@ -34,11 +37,14 @@ public class CreditorServiceImpl implements CreditorService {
 
     @Override
     public void updateCreditor(Creditor creditor) {
-        repository.update(creditor);
+        repository.save(creditor); // save = insert/update
     }
 
     @Override
     public void deleteCreditor(int id) {
-        repository.softDelete(id);
+        repository.findById(id).ifPresent(c -> {
+            c.setDeletedAt(LocalDateTime.now()); // soft delete
+            repository.save(c);
+        });
     }
 }

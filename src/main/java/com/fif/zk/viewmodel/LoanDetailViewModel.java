@@ -3,26 +3,46 @@ package com.fif.zk.viewmodel;
 import com.fif.zk.dto.LoanDetailResponse;
 import com.fif.zk.model.Creditor;
 import com.fif.zk.model.Loan;
-import com.fif.zk.service.implementation.CreditorServiceImpl;
-import com.fif.zk.service.implementation.LoanServiceImpl;
+import com.fif.zk.service.CreditorService;
+import com.fif.zk.service.LoanService;
+import org.springframework.stereotype.Component;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.select.annotation.VariableResolver;
+import org.zkoss.zk.ui.select.annotation.WireVariable;
+import org.zkoss.zkplus.spring.DelegatingVariableResolver;
 
+@Component
+@VariableResolver(DelegatingVariableResolver.class)
 public class LoanDetailViewModel {
 
+    // --- Data fields ---
     private LoanDetailResponse loan;
 
-    public LoanDetailResponse getLoan() { return loan; }
+    // --- Services ---
+    @WireVariable("creditorServiceImpl")
+    private CreditorService creditorService;
 
+    @WireVariable("loanServiceImpl")
+    private LoanService loanService;
+
+    // --- Getter ---
+    public LoanDetailResponse getLoan() {
+        return loan;
+    }
+
+    // --- Init ---
     @Init
     public void init() {
         String idParam = Executions.getCurrent().getParameter("id");
         if (idParam != null) {
             int loanId = Integer.parseInt(idParam);
-            Loan l = LoanServiceImpl.getInstance().getLoanById(loanId);
+            Loan l = loanService.getLoanById(loanId);
+
             if (l != null) {
-                Creditor c = CreditorServiceImpl.getInstance().getCreditorById(l.getCreditor().getId());
+                Creditor c = creditorService.getCreditorById(l.getCreditor().getId());
+
                 loan = new LoanDetailResponse();
                 loan.setId(l.getId());
                 loan.setLoanName(l.getLoanName());
@@ -35,14 +55,15 @@ public class LoanDetailViewModel {
         }
     }
 
+    // --- Commands ---
     @Command
     public void update() {
         if (loan != null) {
-            Loan l = LoanServiceImpl.getInstance().getLoanById(loan.getId());
+            Loan l = loanService.getLoanById(loan.getId());
             if (l != null) {
-                // Update status saja
+                // Update hanya status
                 l.setStatus(loan.getStatus());
-                LoanServiceImpl.getInstance().updateLoan(l);
+                loanService.updateLoan(l);
             }
         }
         Executions.sendRedirect("/pages/layout.zul?page=/pages/loan-dashboard.zul");
