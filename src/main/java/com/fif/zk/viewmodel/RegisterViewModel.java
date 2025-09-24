@@ -49,13 +49,22 @@ public class RegisterViewModel {
 
         boolean valid = true;
 
-        // validate email
-        if (user.getEmail() == null || user.getEmail().trim().isEmpty()) {
+        // --- validate email ---
+        String email = user.getEmail();
+        if (email == null || email.trim().isEmpty()) {
             emailError = true;
             valid = false;
-        } else if (userService.existsEmail(user.getEmail().trim())) {
-            emailError = true;
-            valid = false;
+        } else {
+            // cek format email
+            String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+            if (!email.matches(emailRegex)) {
+                emailError = true;
+                valid = false;
+            } else if (userService.existsEmail(email.trim())) {
+                // cek email sudah terdaftar
+                emailError = true;
+                valid = false;
+            }
         }
 
         // validate password

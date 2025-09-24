@@ -44,7 +44,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/pages/layout.zul?page=loan-dashboard.zul",
                         "/pages/layout.zul?page=loan-form.zul"
                 ).hasRole("ADMIN")
-
                 // USER & ADMIN sama-sama boleh akses creditor
                 .antMatchers(
                         "/pages/layout.zul?page=creditor-dashboard.zul",
@@ -84,11 +83,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public AuthenticationSuccessHandler customSuccessHandler() {
         return (request, response, authentication) -> {
             String role = authentication.getAuthorities().iterator().next().getAuthority();
-
             if ("ROLE_ADMIN".equals(role)) {
-                response.sendRedirect("/zk-pengajuan-leasing/pages/layout.zul?page=loan-dashboard.zul");
-            } else {
                 response.sendRedirect("/zk-pengajuan-leasing/pages/layout.zul?page=creditor-dashboard.zul");
+            } else {
+                response.sendRedirect("/zk-pengajuan-leasing/pages/layout.zul?page=loan-dashboard.zul");
             }
         };
     }
