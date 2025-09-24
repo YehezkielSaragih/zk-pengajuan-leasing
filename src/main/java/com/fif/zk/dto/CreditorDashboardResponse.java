@@ -1,5 +1,8 @@
 package com.fif.zk.dto;
 
+import java.text.NumberFormat;
+import java.util.Locale;
+
 public class CreditorDashboardResponse {
     private Integer id;
     private String name;
@@ -29,5 +32,11 @@ public class CreditorDashboardResponse {
 
     public String getTotalLoanString() {
         return activeLoanCount + " Active, " + rejectedLoanCount + " Rejected, " + pendingLoanCount + " Pending";
+    }
+
+    public String getIncomeFormatted() {
+        if (income == null) return "-";
+        NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("id", "ID"));
+        return nf.format(income);
     }
 }

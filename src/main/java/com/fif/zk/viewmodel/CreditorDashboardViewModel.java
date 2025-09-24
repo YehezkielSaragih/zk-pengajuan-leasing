@@ -1,6 +1,7 @@
 package com.fif.zk.viewmodel;
 
 import com.fif.zk.dto.CreditorDashboardResponse;
+import com.fif.zk.dto.LoanDashboardResponse;
 import com.fif.zk.model.Creditor;
 import com.fif.zk.model.Loan;
 import com.fif.zk.service.CreditorService;
@@ -40,7 +41,7 @@ public class CreditorDashboardViewModel {
 
     private boolean showLoanModal = false;
     private String selectedCreditorName;
-    private List<Loan> selectedLoans = new ArrayList<>();
+    private List<LoanDashboardResponse> selectedLoans = new ArrayList<>();
 
     // --- Init ---
     @Init
@@ -56,7 +57,8 @@ public class CreditorDashboardViewModel {
     public boolean isShowDeleteModal() { return showDeleteModal; }
     public boolean isShowLoanModal() { return showLoanModal; }
     public String getSelectedCreditorName() { return selectedCreditorName; }
-    public List<Loan> getSelectedLoans() { return selectedLoans; }
+    public List<LoanDashboardResponse> getSelectedLoans() { return selectedLoans; }
+
 
     // --- Private Methods ---
     private List<CreditorDashboardResponse> loadDashboardItems() {
@@ -134,21 +136,28 @@ public class CreditorDashboardViewModel {
 
     @Command
     @NotifyChange({"showLoanModal", "selectedLoans", "selectedCreditorName"})
-    public void viewLoans(@BindingParam("id") int creditorId) {
-        Creditor c = creditorService.getCreditors().stream()
-                .filter(cred -> cred.getId() == creditorId)
-                .findFirst()
-                .orElse(null);
+    public void viewLoans(@BindingParam("creditor") CreditorDashboardResponse creditorDto) {
+        if (creditorDto != null) {
+            selectedCreditorName = creditorDto.getName();
 
-        if (c != null) {
-            selectedCreditorName = c.getName();
-            selectedLoans = loanService.getLoansByCreditorId(c.getId())
+            selectedLoans = loanService.getLoansByCreditorId(creditorDto.getId())
                     .stream()
                     .filter(l -> l.getDeletedAt() == null)
+                    .map(l -> new LoanDashboardResponse(
+                            l.getId(),
+                            creditorDto.getName(),
+                            l.getLoanName(),
+                            l.getLoanType(),
+                            l.getLoanAmount(),
+                            l.getDownPayment(),
+                            l.getStatus()
+                    ))
                     .collect(Collectors.toList());
+
             showLoanModal = true;
         }
     }
+
 
     @Command
     @NotifyChange("showLoanModal")

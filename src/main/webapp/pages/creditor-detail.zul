@@ -28,7 +28,11 @@
                     </row>
                     <row>
                         <label value="Income:"/>
-                        <doublebox value="@bind(vm.creditDetail.creditor.income)" width="200px"/>
+                        <intbox value="@bind(vm.creditDetail.creditor.income)"
+                                placeholder="Example: 8000000"
+                                format="#,###"
+                                onInvalid="Clients.showNotification('Only numbers are allowed!', 'error', self, 'end_center', 3000)"
+                                width="200px"/>
                     </row>
 
                     <!-- Loan Summary -->

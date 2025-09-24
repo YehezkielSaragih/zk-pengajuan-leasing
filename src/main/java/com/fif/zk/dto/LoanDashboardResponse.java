@@ -1,5 +1,8 @@
 package com.fif.zk.dto;
 
+import java.text.NumberFormat;
+import java.util.Locale;
+
 public class LoanDashboardResponse {
     private Integer loanId;
     private String creditorName;
@@ -39,4 +42,18 @@ public class LoanDashboardResponse {
     public void setLoanAmount(Integer loanAmount) { this.loanAmount = loanAmount; }
     public void setDownPayment(Integer downPayment) { this.downPayment = downPayment; }
     public void setStatus(String status) { this.status = status; }
+
+    public String getLoanAmountFormatted() {
+        return formatRupiah(loanAmount);
+    }
+
+    public String getDownPaymentFormatted() {
+        return formatRupiah(downPayment);
+    }
+
+    private String formatRupiah(Integer value) {
+        if (value == null) return "-";
+        NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("id", "ID"));
+        return nf.format(value);
+    }
 }

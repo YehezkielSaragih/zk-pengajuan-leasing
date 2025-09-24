@@ -40,11 +40,17 @@
                     </row>
                     <row>
                         <label value="Down Payment:"/>
-                        <longbox value="@bind(vm.downPayment)" placeholder="Example: 2000000"/>
+                        <intbox value="@bind(vm.downPayment)"
+                                placeholder="Example: 2000000"
+                                format="#,###"
+                                onInvalid="Clients.showNotification('Only numbers are allowed!', 'error', self, 'end_center', 3000)"/>
                     </row>
                     <row>
                         <label value="Loan Amount:"/>
-                        <longbox value="@bind(vm.loanAmount)" placeholder="Example: 10000000"/>
+                        <intbox value="@bind(vm.loanAmount)"
+                                placeholder="Example: 10000000"
+                                format="#,###"
+                                onInvalid="Clients.showNotification('Only numbers are allowed!', 'error', self, 'end_center', 3000)"/>
                     </row>
                 </rows>
             </grid>

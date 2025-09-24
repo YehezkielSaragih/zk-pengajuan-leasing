@@ -28,7 +28,10 @@
                     </row>
                     <row>
                         <label value="Income:"/>
-                        <doublebox value="@bind(vm.income)" placeholder="Example: 8000000"/>
+                        <intbox value="@bind(vm.income)"
+                                placeholder="Example: 8000000"
+                                format="#,###"
+                                onInvalid="Clients.showNotification('Only numbers are allowed!', 'error', self, 'end_center', 3000)"/>
                     </row>
                 </rows>
             </grid>

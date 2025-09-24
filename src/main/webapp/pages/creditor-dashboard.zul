@@ -33,12 +33,12 @@
                     <listitem>
                         <listcell label="@load(each.id)" style="width:40px;"/>
                         <listcell label="@load(each.name)" style="width:210px;"/>
-                        <listcell label="@load(each.income)" style="width:120px;"/>
+                        <listcell label="@load(each.incomeFormatted)" style="width:120px;"/>
                         <listcell label="@load(each.totalLoanString)" style="width:190px;"/>
                         <listcell style="width:180px;">
                             <hlayout spacing="5px" hflex="1">
                                 <button label="Detail" sclass="action-button"
-                                        onClick="@command('viewLoans', id=each.id)"/>
+                                        onClick="@command('viewLoans', creditor=each)"/>
                                 <button label="Edit" sclass="action-button"
                                         onClick="@command('editCreditor', id=each.id)"/>
                                 <button label="Delete" sclass="action-button"
@@ -63,9 +63,10 @@
             </vlayout>
         </window>
 
-        <window id="loanModal" title="Loans" border="normal" width="700px"
+<!--        loan modal-->
+        <window id="loanModal" title="Loans" border="normal" width="90%" height="80%"
                 visible="@bind(vm.showLoanModal)" position="center" mode="modal">
-            <vlayout spacing="10px" style="padding:15px;">
+        <vlayout spacing="10px" style="padding:15px;">
                 <hlayout spacing="5px">
                     <label value="Loans for:" sclass="page-title"/>
                     <label value="@load(vm.selectedCreditorName)" sclass="page-title"/>
@@ -82,11 +83,11 @@
                     </listhead>
                     <template name="model">
                         <listitem>
-                            <listcell label="@load(each.id)"/>
+                            <listcell label="@load(each.loanId)"/>
                             <listcell label="@load(each.loanName)"/>
                             <listcell label="@load(each.loanType)"/>
-                            <listcell label="@load(each.downPayment)"/>
-                            <listcell label="@load(each.loanAmount)"/>
+                            <listcell label="@load(each.downPaymentFormatted)"/>
+                            <listcell label="@load(each.loanAmountFormatted)"/>
                             <listcell label="@load(each.status)"/>
                         </listitem>
                     </template>
