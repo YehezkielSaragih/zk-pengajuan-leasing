@@ -5,13 +5,10 @@ import com.fif.zk.model.Creditor;
 import java.util.List;
 
 public interface CreditorService {
+
     List<Creditor> getCreditors();
-
-    void addCreditor(Creditor creditor);
-
-    void deleteCreditor(int id);
-
     Creditor getCreditorById(int id);
-
-    void updateCreditor(Creditor updated);
+    void addCreditor(Creditor creditor);
+    void updateCreditor(Creditor creditor);
+    void deleteCreditor(int id);
 }

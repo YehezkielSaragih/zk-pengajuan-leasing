@@ -2,7 +2,7 @@
 <zk xmlns="http://www.zkoss.org/2005/zul">
 
     <style src="/css/style.css"/>
-    <style src="/css/login.css"/>
+    <style src="/css/auth.css"/>
 
     <vlayout hflex="1" vflex="1" sclass="login-page">
         <window width="420px" border="normal" closable="false"

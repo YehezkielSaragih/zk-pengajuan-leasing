@@ -1,40 +1,63 @@
 package com.fif.zk.model;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
+@Entity
+@Table(name = "loans")
 public class Loan {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private Integer creditorId;   // FK ke Creditor
 
-    private String loanName;      // nama pinjaman
-    private String loanType;      // tipe pinjaman
-    private Integer loanAmount;   // total pinjaman
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "creditor_id", nullable = false)
+    private Creditor creditor;
+
+    @Column(name = "loan_name", nullable = false)
+    private String loanName;
+
+    @Column(name = "loan_type", nullable = false)
+    private String loanType;
+
+    @Column(name = "loan_amount", nullable = false)
+    private Integer loanAmount;
+
+    @Column(name = "down_payment", nullable = false)
     private Integer downPayment;
-    private String status;        // PENDING, APPROVED, REJECTED
 
+    @Column(nullable = false)
+    private String status;  // PENDING, APPROVED, REJECTED
+
+    @Column(name = "created_at")
     private LocalDateTime createdAt;
+
+    @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+    @Column(name = "deleted_at")
     private LocalDateTime deletedAt;
 
     public Loan() {}
 
-    public Loan(Integer creditorId, String loanName, String loanType, Integer loanAmount, Integer downPayment, String status) {
-        this.creditorId = creditorId;
+    public Loan(Creditor creditor, String loanName, String loanType, Integer loanAmount, Integer downPayment, String status) {
+        this.creditor = creditor;
         this.loanName = loanName;
         this.loanType = loanType;
         this.loanAmount = loanAmount;
         this.downPayment = downPayment;
         this.status = status;
         this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
     }
 
     // ===== Getters & Setters =====
     public Integer getId() { return id; }
     public void setId(Integer id) { this.id = id; }
 
-    public Integer getCreditorId() { return creditorId; }
-    public void setCreditorId(Integer creditorId) { this.creditorId = creditorId; }
+    public Creditor getCreditor() { return creditor; }
+    public void setCreditor(Creditor creditor) { this.creditor = creditor; }
 
     public String getLoanName() { return loanName; }
     public void setLoanName(String loanName) { this.loanName = loanName; }

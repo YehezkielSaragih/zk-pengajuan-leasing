@@ -8,6 +8,15 @@
 	<display-name>zk-pengajuan-leasing</display-name>
 
 	<!-- //// -->
+    <!-- Spring configuration -->
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+    <!-- Enable webapp Scopes-->
+    <listener>
+        <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+    </listener>
+
 	<!-- ZK -->
 	<listener>
 		<description>ZK listener for session cleanup</description>

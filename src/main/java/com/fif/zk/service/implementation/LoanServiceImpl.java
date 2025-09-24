@@ -1,6 +1,7 @@
 package com.fif.zk.service.implementation;
 
 import com.fif.zk.model.Loan;
+import com.fif.zk.repository.LoanRepository;
 import com.fif.zk.service.LoanService;
 
 import java.time.LocalDateTime;
@@ -9,9 +10,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class LoanServiceImpl implements LoanService {
+
     private static LoanServiceImpl instance = new LoanServiceImpl();
-    private List<Loan> loans = new ArrayList<>();
-    private int nextId = 1;
+    private LoanRepository loanRepository = LoanRepository.getInstance();
 
     private LoanServiceImpl() {}
 
@@ -21,49 +22,31 @@ public class LoanServiceImpl implements LoanService {
 
     @Override
     public List<Loan> getLoans() {
-        return loans.stream()
-                .filter(l -> l.getDeletedAt() == null)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public void addLoan(Loan loan) {
-        loan.setId(nextId++);
-        loan.setCreatedAt(LocalDateTime.now());
-        loans.add(loan);
-    }
-
-    @Override
-    public void deleteLoan(int id) {
-        loans.stream()
-                .filter(l -> l.getId().equals(id) && l.getDeletedAt() == null)
-                .findFirst()
-                .ifPresent(l -> l.setDeletedAt(LocalDateTime.now()));
+        return loanRepository.findAll();
     }
 
     @Override
     public Loan getLoanById(int id) {
-        return loans.stream()
-                .filter(l -> l.getId().equals(id) && l.getDeletedAt() == null)
-                .findFirst()
-                .orElse(null);
+        return loanRepository.findById(id);
     }
 
     @Override
-    public void updateLoan(Loan updated) {
-        for (int i = 0; i < loans.size(); i++) {
-            Loan current = loans.get(i);
-            if (current.getId().equals(updated.getId()) && current.getDeletedAt() == null) {
-                updated.setUpdatedAt(LocalDateTime.now());
-                loans.set(i, updated);
-                break;
-            }
-        }
+    public void addLoan(Loan loan) {
+        loanRepository.save(loan);
     }
 
+    @Override
+    public void updateLoan(Loan loan) {
+        loanRepository.update(loan);
+    }
+
+    @Override
+    public void deleteLoan(int id) {
+        loanRepository.softDelete(id);
+    }
+
+    @Override
     public List<Loan> getLoansByCreditorId(int creditorId) {
-        return loans.stream()
-                .filter(l -> l.getCreditorId() == creditorId && l.getDeletedAt() == null)
-                .collect(Collectors.toList());
+        return loanRepository.findByCreditorId(creditorId);
     }
 }

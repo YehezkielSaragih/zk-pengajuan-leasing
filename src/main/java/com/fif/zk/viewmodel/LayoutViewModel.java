@@ -4,6 +4,7 @@ import org.zkoss.bind.annotation.Init;
 import org.zkoss.zk.ui.Executions;
 
 public class LayoutViewModel {
+
     private String page;
     private boolean isCreditorDashboard = false;
     private boolean isLoanDashboard = false;
@@ -20,16 +21,16 @@ public class LayoutViewModel {
                 page = p;
             }
         } else {
-            page = "/pages/creditorDashboard.zul"; // default halaman
+            page = "/pages/creditor-dashboard.zul"; // default halaman
         }
 
-        if (page.contains("creditorDashboard")) {
+        if (page.contains("creditor-dashboard")) {
             isCreditorDashboard = true;
-        } else if (page.contains("loanDashboard")) {
+        } else if (page.contains("loan-dashboard")) {
             isLoanDashboard = true;
-        } else if (page.contains("creditorForm")) {
+        } else if (page.contains("creditor-form")) {
             isCreditorForm = true;
-        } else if (page.contains("loanForm")) {
+        } else if (page.contains("loan-form")) {
             isLoanForm = true;
         }
     }

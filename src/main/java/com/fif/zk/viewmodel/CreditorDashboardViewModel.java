@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class CreditorDashboardViewModel {
+
     private String filterText = "";
     private List<CreditorDashboardResponse> filteredCreditors;
 
@@ -25,14 +26,12 @@ public class CreditorDashboardViewModel {
         filteredCreditors = loadDashboardItems();
     }
 
-    // === Getters & Setters ===
     public List<CreditorDashboardResponse> getFilteredCreditors() { return filteredCreditors; }
     public String getFilterText() { return filterText; }
     public void setFilterText(String filterText) { this.filterText = filterText; }
     public int getDeletingId() { return deletingId; }
     public boolean isShowDeleteModal() { return showDeleteModal; }
 
-    // === Load data ===
     private List<CreditorDashboardResponse> loadDashboardItems() {
         return CreditorServiceImpl.getInstance().getCreditors().stream()
                 .map(c -> {
@@ -78,7 +77,7 @@ public class CreditorDashboardViewModel {
 
     @Command
     public void editCreditor(@BindingParam("id") int id) {
-        Executions.sendRedirect("/pages/layout.zul?page=/pages/creditorDetail.zul&id=" + id);
+        Executions.sendRedirect("/pages/layout.zul?page=/pages/creditor-detail.zul&id=" + id);
     }
 
     @Command

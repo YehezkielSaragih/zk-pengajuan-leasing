@@ -16,37 +16,37 @@
                 <rows>
                     <row>
                         <label value="Name:"/>
-                        <label value="@load(vm.creditor.name)" width="300px"/>
+                        <label value="@load(vm.creditDetail.creditor.name)" width="300px"/>
                     </row>
                     <row>
                         <label value="Age:"/>
-                        <intbox value="@bind(vm.creditor.age)" placeholder="@load(vm.creditor.age)" width="150px"/>
+                        <intbox value="@bind(vm.creditDetail.creditor.age)" width="150px"/>
                     </row>
                     <row>
                         <label value="Address:"/>
-                        <textbox value="@bind(vm.creditor.address)" placeholder="@load(vm.creditor.address)" width="300px"/>
+                        <textbox value="@bind(vm.creditDetail.creditor.address)" width="300px"/>
                     </row>
                     <row>
                         <label value="Income:"/>
-                        <doublebox value="@bind(vm.creditor.income)" placeholder="@load(vm.creditor.income)" width="200px"/>
+                        <doublebox value="@bind(vm.creditDetail.creditor.income)" width="200px"/>
                     </row>
 
-                    <!-- Loan Summary (readonly) -->
+                    <!-- Loan Summary -->
                     <row>
                         <label value="Total Loans:"/>
-                        <label value="@load(vm.totalLoans)"/>
+                        <label value="@load(vm.creditDetail.totalLoans)"/>
                     </row>
                     <row>
                         <label value="Pending Loans:"/>
-                        <label value="@load(vm.pendingLoans)"/>
+                        <label value="@load(vm.creditDetail.pendingLoans)"/>
                     </row>
                     <row>
                         <label value="Approved Loans:"/>
-                        <label value="@load(vm.approvedLoans)"/>
+                        <label value="@load(vm.creditDetail.approvedLoans)"/>
                     </row>
                     <row>
                         <label value="Rejected Loans:"/>
-                        <label value="@load(vm.rejectedLoans)"/>
+                        <label value="@load(vm.creditDetail.rejectedLoans)"/>
                     </row>
                 </rows>
             </grid>

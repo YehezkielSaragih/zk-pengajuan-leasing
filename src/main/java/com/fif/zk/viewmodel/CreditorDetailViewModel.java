@@ -47,11 +47,11 @@ public class CreditorDetailViewModel {
         if (creditDetail != null && creditDetail.getCreditor() != null) {
             CreditorServiceImpl.getInstance().updateCreditor(creditDetail.getCreditor());
         }
-        Executions.sendRedirect("/pages/layout.zul?page=/pages/creditorDashboard.zul");
+        Executions.sendRedirect("/pages/layout.zul?page=/pages/creditor-dashboard.zul");
     }
 
     @Command
     public void back() {
-        Executions.sendRedirect("/pages/layout.zul?page=/pages/creditorDashboard.zul");
+        Executions.sendRedirect("/pages/layout.zul?page=/pages/creditor-dashboard.zul");
     }
 }

@@ -29,7 +29,7 @@
                     <!-- Placeholder item -->
                     <comboitem label="Filter by Loan Type" value="" disabled="true"
                                selected="@load(empty vm.filterType)"/>
-                    <comboitem label="All Type" value="All"/>
+                    <comboitem label="All Loan Type" value="All"/>
                     <comboitem label="Car" value="Car"/>
                     <comboitem label="Motorcycle" value="Motorcycle"/>
                     <comboitem label="Electronic" value="Electronic"/>

@@ -1,5 +1,5 @@
-/* Container utama halaman register */
-.register-page {
+/* Shared page container */
+.register-page, .login-page {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -7,8 +7,8 @@
     background-color: #f0f2f5;
 }
 
-/* Card form register */
-.register-container {
+/* Shared card form */
+.register-container, .login-container {
     width: 420px;
     background-color: #fff;
     padding: 30px 35px;
@@ -16,8 +16,8 @@
     box-shadow: 0 12px 35px rgba(0,0,0,0.12);
 }
 
-/* Judul form */
-.register-title {
+/* Shared form title */
+.register-title, .login-title {
     font-size: 24px;
     font-weight: 700;
     color: #4a90e2;
@@ -25,21 +25,21 @@
     margin-bottom: 25px;
 }
 
-/* Baris input form */
+/* Shared form row */
 .form-row {
     display: flex;
     flex-direction: column;
     margin-bottom: 18px;
 }
 
-/* Label input */
+/* Shared label */
 .form-label {
     font-weight: 600;
     margin-bottom: 6px;
     color: #555;
 }
 
-/* Input textbox */
+/* Shared input */
 .form-input {
     padding: 10px 14px;
     font-size: 14px;
@@ -56,8 +56,8 @@
     outline: none;
 }
 
-/* Tombol register */
-.register-button {
+/* Shared buttons */
+.register-button, .login-button {
     width: 100%;
     padding: 12px 0;
     font-size: 16px;
@@ -70,21 +70,21 @@
     transition: all 0.3s ease;
 }
 
-.register-button:hover {
+.register-button:hover, .login-button:hover {
     background: linear-gradient(135deg, #357ABD, #2a5a9f);
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(0,0,0,0.2);
 }
 
-/* Error message */
+/* Shared error message */
 .error {
     color: #e74c3c;
     font-size: 13px;
     margin-top: 4px;
 }
 
-/* Link untuk menuju login */
-.register-link {
+/* Page-specific links */
+.register-link, .login-link {
     color: #4a90e2;
     text-align: center;
     margin-top: 20px;
@@ -92,6 +92,6 @@
     font-weight: 600;
 }
 
-.register-link:hover {
+.register-link:hover, .login-link:hover {
     text-decoration: underline;
 }

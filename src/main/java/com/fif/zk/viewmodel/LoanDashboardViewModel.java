@@ -16,7 +16,7 @@ public class LoanDashboardViewModel {
 
     private String filterText = "";
     private String filterStatus = "All Status";
-    private String filterType = "All Type";
+    private String filterType = "All Loan Type";
     private List<LoanDashboardResponse> filteredLoans;
 
     private int deletingId = -1;
@@ -28,7 +28,6 @@ public class LoanDashboardViewModel {
     public String getFilterType() { return filterType; }
     public void setFilterType(String filterType) { this.filterType = filterType; }
 
-    // === Getters ===
     public List<LoanDashboardResponse> getFilteredLoans() { return filteredLoans; }
     public String getFilterText() { return filterText; }
     public void setFilterText(String filterText) { this.filterText = filterText; }
@@ -40,7 +39,7 @@ public class LoanDashboardViewModel {
     private List<LoanDashboardResponse> loadDashboardItems() {
         return LoanServiceImpl.getInstance().getLoans().stream()
                 .map(l -> {
-                    Creditor c = CreditorServiceImpl.getInstance().getCreditorById(l.getCreditorId());
+                    Creditor c = CreditorServiceImpl.getInstance().getCreditorById(l.getCreditor().getId());
                     return new LoanDashboardResponse(
                             l.getId(),
                             c != null ? c.getName() : "Unknown",
@@ -62,7 +61,7 @@ public class LoanDashboardViewModel {
                         || l.getCreditorName().toLowerCase().contains(filterText.toLowerCase())
                         || String.valueOf(l.getLoanId()).contains(filterText)))
                 .filter(l -> filterStatus.equals("All Status") || l.getStatus().equalsIgnoreCase(filterStatus))
-                .filter(l -> filterType.equals("All Type") || l.getLoanType().equalsIgnoreCase(filterType)) // tambahan
+                .filter(l -> filterType.equals("All Loan Type") || l.getLoanType().equalsIgnoreCase(filterType)) //
                 .collect(Collectors.toList());
     }
 
@@ -71,13 +70,13 @@ public class LoanDashboardViewModel {
     public void clearFilter() {
         filterText = "";
         filterStatus = "All Status";
-        filterType = "All Type";
+        filterType = "All Loan Type";
         filteredLoans = loadDashboardItems();
     }
 
     @Command
     public void editLoan(@BindingParam("id") int id) {
-        Executions.sendRedirect("/pages/layout.zul?page=/pages/loanDetail.zul&id=" + id);
+        Executions.sendRedirect("/pages/layout.zul?page=/pages/loan-detail.zul&id=" + id);
     }
 
     @Command

@@ -19,7 +19,8 @@
                         <combobox model="@load(vm.creditors)"
                                   selectedItem="@bind(vm.selectedCreditor)"
                                   placeholder="Select Creditor"
-                                  autodrop="true">
+                                  autodrop="true"
+                                  readonly="true">
                             <template name="model">
                                 <comboitem label="@load(each.name)" value="@load(each)"/>
                             </template>
@@ -31,7 +32,7 @@
                     </row>
                     <row>
                         <label value="Loan Type:"/>
-                        <combobox value="@bind(vm.loanType)" placeholder="Select loan type" autodrop="true">
+                        <combobox value="@bind(vm.loanType)" placeholder="Select loan type" readonly="true" autodrop="true">
                             <comboitem label="Car" value="Car"/>
                             <comboitem label="Motorcycle" value="Motorcycle"/>
                             <comboitem label="Electronic" value="Electronic"/>
