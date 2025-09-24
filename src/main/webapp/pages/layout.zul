@@ -31,7 +31,7 @@
                     <a href="/pages/layout.zul?page=loan-form.zul"
                        label="➕ Loan Form"
                        sclass="@load(vm.getLoanFormClass())"/>
-                    <a href="/pages/login.zul"
+                    <a href="/logout"
                        label="🚪 Logout"
                        sclass="sidebar-link"/>
                 </vlayout>

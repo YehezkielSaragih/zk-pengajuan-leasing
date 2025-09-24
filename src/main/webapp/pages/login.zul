@@ -1,43 +1,46 @@
 <?page title="Login" contentType="text/html;charset=UTF-8"?>
-<zk xmlns="http://www.zkoss.org/2005/zul">
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:n="native">
 
     <style src="/css/style.css"/>
     <style src="/css/auth.css"/>
 
     <vlayout hflex="1" vflex="1" sclass="login-page">
         <window width="420px" border="normal" closable="false"
-                apply="org.zkoss.bind.BindComposer"
-                viewModel="@id('vm') @init('com.fif.zk.viewmodel.LoginViewModel')"
                 sclass="login-container">
 
             <vlayout spacing="20px">
                 <!-- Title -->
                 <label value="Login" sclass="login-title"/>
 
+                <!-- Native form for Spring Security -->
+                <n:form action="${pageContext.request.contextPath}/pages/login" method="post">
+
                 <vlayout sclass="form">
-                    <!-- Email -->
-                    <vlayout sclass="form-row">
-                        <label value="Email" sclass="form-label"/>
-                        <textbox value="@bind(vm.user.email)" placeholder="Enter your email"
-                                 sclass="form-input"/>
-                        <label value="Invalid email!" sclass="error" visible="@bind(vm.emailError)"/>
-                    </vlayout>
 
-                    <!-- Password -->
-                    <vlayout sclass="form-row">
-                        <label value="Password" sclass="form-label"/>
-                        <textbox type="password" value="@bind(vm.user.password)" placeholder="Enter your password"
-                                 sclass="form-input"/>
-                        <label value="Invalid password!" sclass="error" visible="@bind(vm.passwordError)"/>
-                    </vlayout>
+                        <!-- Email -->
+                        <vlayout sclass="form-row">
+                            <label value="Email" sclass="form-label"/>
+                            <n:input type="text" name="username"
+                                     placeholder="Enter your email"
+                                     class="form-input"/>
+                        </vlayout>
 
-                    <!-- Login Button -->
-                    <button label="Login" onClick="@command('login')" sclass="login-button"/>
-                </vlayout>
+                        <!-- Password -->
+                        <vlayout sclass="form-row">
+                            <label value="Password" sclass="form-label"/>
+                            <n:input type="password" name="password"
+                                     placeholder="Enter your password"
+                                     class="form-input"/>
+                        </vlayout>
+
+                        <!-- Login Button -->
+                        <n:button type="submit" class="login-button">Login</n:button>
+                    </vlayout>
+                </n:form>
 
                 <!-- Link to Register -->
-                <label value="Don’t have an account? Register" sclass="login-link"
-                       onClick="@command('goToRegister')"/>
+                <label value="Don’t have an account? Register" onClick="@command('goToRegister')" sclass="login-link"/>
             </vlayout>
         </window>
     </vlayout>
