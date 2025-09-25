@@ -2,6 +2,7 @@ package com.fif.zk.viewmodel;
 
 import com.fif.zk.model.Creditor;
 import com.fif.zk.model.Loan;
+import com.fif.zk.model.LoanStatus;
 import com.fif.zk.model.LoanType;
 import com.fif.zk.service.CreditorService;
 import com.fif.zk.service.LoanService;
@@ -116,13 +117,20 @@ public class LoanFormViewModel {
             return;
         }
 
+        LoanStatus loanStatus;
+        try {
+            loanStatus = LoanStatus.valueOf(status.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            loanStatus = LoanStatus.PENDING; // fallback if invalid string
+        }
+
         Loan loan = new Loan(
                 selectedCreditor,
                 loanName,
                 selectedLoanType,
                 loanAmount,
                 downPayment,
-                status
+                loanStatus
         );
 
         loanService.addLoan(loan);

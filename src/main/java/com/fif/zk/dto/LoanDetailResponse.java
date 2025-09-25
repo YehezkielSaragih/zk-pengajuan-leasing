@@ -3,8 +3,8 @@ package com.fif.zk.dto;
 public class LoanDetailResponse {
     private int id;
     private String creditorName;
-    private String loanName;      // baru
-    private String loanType;      // baru
+    private String loanName;
+    private String loanType;
     private int loanAmount;
     private int downPayment;
     private String status;
@@ -29,5 +29,13 @@ public class LoanDetailResponse {
     public void setDownPayment(int downPayment) { this.downPayment = downPayment; }
 
     public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
+    public void setStatus(String status) {
+        this.status = formatStatus(status);
+    }
+
+    // --- Helper untuk format status ---
+    private String formatStatus(String status) {
+        if (status == null || status.isEmpty()) return status;
+        return status.substring(0, 1).toUpperCase() + status.substring(1).toLowerCase();
+    }
 }

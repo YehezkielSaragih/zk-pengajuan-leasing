@@ -28,8 +28,9 @@ public class Loan {
     @Column(name = "down_payment", nullable = false)
     private Integer downPayment;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private String status;  // PENDING, APPROVED, REJECTED
+    private LoanStatus status;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
@@ -42,7 +43,7 @@ public class Loan {
 
     public Loan() {}
 
-    public Loan(Creditor creditor, String loanName, LoanType loanType, Integer loanAmount, Integer downPayment, String status) {
+    public Loan(Creditor creditor, String loanName, LoanType loanType, Integer loanAmount, Integer downPayment, LoanStatus status) {
         this.creditor = creditor;
         this.loanName = loanName;
         this.loanType = loanType;
@@ -72,8 +73,8 @@ public class Loan {
     public Integer getDownPayment() { return downPayment; }
     public void setDownPayment(Integer downPayment) { this.downPayment = downPayment; }
 
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
+    public LoanStatus getStatus() { return status; }
+    public void setStatus(LoanStatus status) { this.status = status; }
 
     public LocalDateTime getCreatedAt() { return createdAt; }
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }

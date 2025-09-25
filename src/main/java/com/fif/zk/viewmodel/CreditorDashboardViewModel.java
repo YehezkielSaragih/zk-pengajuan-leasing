@@ -4,6 +4,7 @@ import com.fif.zk.dto.CreditorDashboardResponse;
 import com.fif.zk.dto.LoanDashboardResponse;
 import com.fif.zk.model.Creditor;
 import com.fif.zk.model.Loan;
+import com.fif.zk.model.LoanStatus;
 import com.fif.zk.service.CreditorService;
 import com.fif.zk.service.LoanService;
 import org.hibernate.Hibernate;
@@ -65,7 +66,6 @@ public class CreditorDashboardViewModel {
     public String getSelectedCreditorName() { return selectedCreditorName; }
     public List<LoanDashboardResponse> getSelectedLoans() { return selectedLoans; }
 
-
     // --- Private Methods ---
     private List<CreditorDashboardResponse> loadDashboardItems() {
         return creditorService.getCreditors().stream()
@@ -75,9 +75,17 @@ public class CreditorDashboardViewModel {
                             .filter(l -> l.getDeletedAt() == null) // exclude soft-deleted
                             .collect(Collectors.toList());
 
-                    long active = loans.stream().filter(l -> "Approved".equalsIgnoreCase(l.getStatus())).count();
-                    long rejected = loans.stream().filter(l -> "Rejected".equalsIgnoreCase(l.getStatus())).count();
-                    long pending = loans.stream().filter(l -> "Pending".equalsIgnoreCase(l.getStatus())).count();
+                    long active = loans.stream()
+                            .filter(l -> l.getStatus() == LoanStatus.APPROVED)
+                            .count();
+
+                    long rejected = loans.stream()
+                            .filter(l -> l.getStatus() == LoanStatus.REJECTED)
+                            .count();
+
+                    long pending = loans.stream()
+                            .filter(l -> l.getStatus() == LoanStatus.PENDING)
+                            .count();
 
                     return new CreditorDashboardResponse(
                             c.getId(),
@@ -154,17 +162,16 @@ public class CreditorDashboardViewModel {
                             l.getId(),
                             creditorDto.getName(),
                             l.getLoanName(),
-                            l.getLoanType().getName(), // aman, sudah di-init
+                            l.getLoanType().getName(),
                             l.getLoanAmount(),
                             l.getDownPayment(),
-                            l.getStatus()
+                            l.getStatus().name()
                     ))
                     .collect(Collectors.toList());
 
             showLoanModal = true;
         }
     }
-
 
     @Command
     @NotifyChange("showLoanModal")

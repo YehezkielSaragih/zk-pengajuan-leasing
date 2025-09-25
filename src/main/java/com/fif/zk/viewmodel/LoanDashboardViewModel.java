@@ -118,7 +118,7 @@ public class LoanDashboardViewModel {
                             l.getLoanType().getName(),
                             l.getLoanAmount(),
                             l.getDownPayment(),
-                            l.getStatus()
+                            l.getStatus().name()
                     );
                 })
                 .sorted(Comparator.comparing(LoanDashboardResponse::getLoanId))

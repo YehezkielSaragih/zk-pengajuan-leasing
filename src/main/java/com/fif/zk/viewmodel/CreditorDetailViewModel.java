@@ -3,6 +3,7 @@ package com.fif.zk.viewmodel;
 import com.fif.zk.dto.CreditorDetailResponse;
 import com.fif.zk.model.Creditor;
 import com.fif.zk.model.Loan;
+import com.fif.zk.model.LoanStatus;
 import com.fif.zk.service.CreditorService;
 import com.fif.zk.service.LoanService;
 import org.zkoss.bind.annotation.Command;
@@ -50,10 +51,9 @@ public class CreditorDetailViewModel {
                         .collect(Collectors.toList());
 
                 int total = loans.size();
-                int pending = (int) loans.stream().filter(l -> "Pending".equalsIgnoreCase(l.getStatus())).count();
-                int approved = (int) loans.stream().filter(l -> "Approved".equalsIgnoreCase(l.getStatus())).count();
-                int rejected = (int) loans.stream().filter(l -> "Rejected".equalsIgnoreCase(l.getStatus())).count();
-
+                int pending = (int) loans.stream().filter(l -> l.getStatus() == LoanStatus.PENDING).count();
+                int approved = (int) loans.stream().filter(l -> l.getStatus() == LoanStatus.APPROVED).count();
+                int rejected = (int) loans.stream().filter(l -> l.getStatus() == LoanStatus.REJECTED).count();
                 creditDetail = new CreditorDetailResponse(creditor, total, pending, approved, rejected);
             }
         }

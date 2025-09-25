@@ -3,6 +3,7 @@ package com.fif.zk.viewmodel;
 import com.fif.zk.dto.LoanDetailResponse;
 import com.fif.zk.model.Creditor;
 import com.fif.zk.model.Loan;
+import com.fif.zk.model.LoanStatus;
 import com.fif.zk.service.CreditorService;
 import com.fif.zk.service.LoanService;
 import org.hibernate.Hibernate;
@@ -50,10 +51,10 @@ public class LoanDetailViewModel {
                 loan = new LoanDetailResponse();
                 loan.setId(l.getId());
                 loan.setLoanName(l.getLoanName());
-                loan.setLoanType(l.getLoanType().getName()); // aman, sudah di-initialize
+                loan.setLoanType(l.getLoanType().getName());
                 loan.setLoanAmount(l.getLoanAmount());
                 loan.setDownPayment(l.getDownPayment());
-                loan.setStatus(l.getStatus());
+                loan.setStatus(l.getStatus().name());
                 loan.setCreditorName(c != null ? c.getName() : "Unknown");
             }
         }
@@ -66,8 +67,8 @@ public class LoanDetailViewModel {
         if (loan != null) {
             Loan l = loanService.getLoanById(loan.getId());
             if (l != null) {
-                // Update hanya status
-                l.setStatus(loan.getStatus());
+                LoanStatus newStatus = LoanStatus.valueOf(loan.getStatus().toUpperCase());
+                l.setStatus(newStatus);
                 loanService.updateLoan(l);
             }
         }

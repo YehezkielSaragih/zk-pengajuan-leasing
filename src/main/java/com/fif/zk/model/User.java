@@ -2,6 +2,8 @@ package com.fif.zk.model;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -11,14 +13,19 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String email;
 
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false)
-    private String role;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<UserRole> roles = new HashSet<>();
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
@@ -34,14 +41,15 @@ public class User {
         this.updatedAt = LocalDateTime.now();
     }
 
-    public User(String email, String password, String role) {
+    public User(String email, String password, Set<UserRole> userRoles) {
         this.email = email;
         this.password = password;
-        this.role = role;
+        this.roles = roles;
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
     }
 
+    // getters & setters
     public Integer getId() { return id; }
     public void setId(Integer id) { this.id = id; }
 
@@ -51,8 +59,8 @@ public class User {
     public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
 
-    public String getRole() { return role; }
-    public void setRole(String role) { this.role = role; }
+    public Set<UserRole> getRoles() { return roles; }
+    public void setRoles(Set<UserRole> roles) { this.roles = roles; }
 
     public LocalDateTime getCreatedAt() { return createdAt; }
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }

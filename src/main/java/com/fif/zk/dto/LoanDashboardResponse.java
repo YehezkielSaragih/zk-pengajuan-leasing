@@ -12,17 +12,20 @@ public class LoanDashboardResponse {
     private Integer downPayment;
     private String status;
 
-    public LoanDashboardResponse(Integer loanId, String creditorName,
-                                 String loanName, String loanType,
-                                 Integer loanAmount, Integer downPayment,
-                                 String status) {
+    public LoanDashboardResponse(Integer loanId, String creditorName, String loanName,
+                                 String loanType, Integer loanAmount, Integer downPayment, String status) {
         this.loanId = loanId;
-        this.creditorName = creditorName != null ? creditorName : "Unknown";
-        this.loanName = loanName != null ? loanName : "";
-        this.loanType = loanType != null ? loanType : "";
-        this.loanAmount = loanAmount != null ? loanAmount : 0;
-        this.downPayment = downPayment != null ? downPayment : 0;
-        this.status = status != null ? status : "Pending";
+        this.creditorName = creditorName;
+        this.loanName = loanName;
+        this.loanType = loanType;
+        this.loanAmount = loanAmount;
+        this.downPayment = downPayment;
+        this.status = formatStatus(status);
+    }
+
+    private String formatStatus(String status) {
+        if (status == null || status.isEmpty()) return status;
+        return status.substring(0, 1).toUpperCase() + status.substring(1).toLowerCase();
     }
 
     // ===== Getters =====
