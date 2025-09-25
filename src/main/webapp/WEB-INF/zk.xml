@@ -4,8 +4,9 @@
         <name>org.zkoss.zk.ui.VariableResolver</name>
         <value>org.zkoss.zkplus.spring.DelegatingVariableResolver</value>
     </preference>
-    <library-property>
-        <name>org.zkoss.theme.preferred</name>
-        <value>fiftemplate</value>
-    </library-property>
+<!--    ZKOSS Template -->
+<!--    <library-property>-->
+<!--        <name>org.zkoss.theme.preferred</name>-->
+<!--        <value>fiftemplate</value>-->
+<!--    </library-property>-->
 </zk>

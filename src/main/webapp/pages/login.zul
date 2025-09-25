@@ -37,7 +37,7 @@
                         </vlayout>
 
                         <!-- Login Button -->
-                        <n:button type="submit" class="login-button">Login</n:button>
+                        <button type="submit" class="login-button">Login</button>
                     </vlayout>
                 </n:form>
 

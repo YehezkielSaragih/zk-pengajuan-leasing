@@ -104,12 +104,12 @@
         </dependency>
 
         <!-- ZKOSS TEMPLATE -->
-        <dependency>
-            <groupId>com.fif</groupId>
-            <artifactId>fiftemplate</artifactId>
-            <version>1.0.0</version>
-            <scope>compile</scope>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.fif</groupId>-->
+<!--            <artifactId>fiftemplate</artifactId>-->
+<!--            <version>1.0.0</version>-->
+<!--            <scope>compile</scope>-->
+<!--        </dependency>-->
 
         <!-- JPA(Hibernate) and HSQL dependencies -->
         <dependency>
