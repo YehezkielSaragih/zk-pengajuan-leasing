@@ -198,3 +198,50 @@
     box-shadow: 0 0 0 4px rgba(74,144,226,0.2);
     outline: none;
 }
+
+/* Dashboard summary container */
+.dashboard-summary {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+/* Card styling */
+.summary-card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 15px 20px;
+    min-width: 160px;
+    flex: 1;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+/* Hover effect */
+.summary-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+/* Title kecil abu-abu */
+.summary-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #777;
+    margin-bottom: 5px;
+}
+
+/* Value lebih besar */
+.summary-value {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Warna khusus tiap card */
+.summary-card.total { border-top: 4px solid #007bff; }
+.summary-card.approved { border-top: 4px solid #28a745; }
+.summary-card.pending { border-top: 4px solid #ffc107; }
+.summary-card.rejected { border-top: 4px solid #dc3545; }
+.summary-card.amount { border-top: 4px solid #17a2b8; }
