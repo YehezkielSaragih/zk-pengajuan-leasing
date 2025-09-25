@@ -32,10 +32,14 @@
                     </row>
                     <row>
                         <label value="Loan Type:"/>
-                        <combobox value="@bind(vm.loanType)" placeholder="Select loan type" readonly="true" autodrop="true">
-                            <comboitem label="Car" value="Car"/>
-                            <comboitem label="Motorcycle" value="Motorcycle"/>
-                            <comboitem label="Electronic" value="Electronic"/>
+                        <combobox model="@load(vm.loanTypes)"
+                                  selectedItem="@bind(vm.selectedLoanType)"
+                                  placeholder="Select Loan Type"
+                                  autodrop="true"
+                                  readonly="true">
+                            <template name="model">
+                                <comboitem label="@load(each.name)" value="@load(each)"/>
+                            </template>
                         </combobox>
                     </row>
                     <row>

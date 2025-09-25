@@ -97,7 +97,7 @@ public class LoanDashboardViewModel {
                             l.getId(),
                             c != null ? c.getName() : "Unknown",
                             l.getLoanName(),
-                            l.getLoanType(),
+                            l.getLoanType().getName(),
                             l.getLoanAmount(),
                             l.getDownPayment(),
                             l.getStatus()

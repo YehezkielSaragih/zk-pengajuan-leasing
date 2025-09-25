@@ -46,7 +46,7 @@ public class LoanDetailViewModel {
                 loan = new LoanDetailResponse();
                 loan.setId(l.getId());
                 loan.setLoanName(l.getLoanName());
-                loan.setLoanType(l.getLoanType());
+                loan.setLoanType(l.getLoanType().getName());
                 loan.setLoanAmount(l.getLoanAmount());
                 loan.setDownPayment(l.getDownPayment());
                 loan.setStatus(l.getStatus());

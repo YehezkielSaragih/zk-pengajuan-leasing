@@ -18,8 +18,9 @@ public class Loan {
     @Column(name = "loan_name", nullable = false)
     private String loanName;
 
-    @Column(name = "loan_type", nullable = false)
-    private String loanType;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "loan_type_id", nullable = false)
+    private LoanType loanType;
 
     @Column(name = "loan_amount", nullable = false)
     private Integer loanAmount;
@@ -41,7 +42,7 @@ public class Loan {
 
     public Loan() {}
 
-    public Loan(Creditor creditor, String loanName, String loanType, Integer loanAmount, Integer downPayment, String status) {
+    public Loan(Creditor creditor, String loanName, LoanType loanType, Integer loanAmount, Integer downPayment, String status) {
         this.creditor = creditor;
         this.loanName = loanName;
         this.loanType = loanType;
@@ -62,8 +63,8 @@ public class Loan {
     public String getLoanName() { return loanName; }
     public void setLoanName(String loanName) { this.loanName = loanName; }
 
-    public String getLoanType() { return loanType; }
-    public void setLoanType(String loanType) { this.loanType = loanType; }
+    public LoanType getLoanType() { return loanType; }
+    public void setLoanType(LoanType loanType) { this.loanType = loanType; }
 
     public Integer getLoanAmount() { return loanAmount; }
     public void setLoanAmount(Integer loanAmount) { this.loanAmount = loanAmount; }

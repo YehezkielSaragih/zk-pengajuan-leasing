@@ -17,6 +17,22 @@
 
     <jpa:repositories base-package="com.fif.zk.repository" />
 
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="org.postgresql.Driver"/>
+        <property name="url" value="jdbc:postgresql://localhost:5432/zk-pengajuan-leasing"/>
+        <property name="username" value="appuser"/>
+        <property name="password" value="apppass"/>
+    </bean>
+
+    <bean id="flyway" class="org.flywaydb.core.Flyway" init-method="migrate" depends-on="dataSource">
+        <property name="dataSource" ref="dataSource" />
+        <property name="baselineOnMigrate" value="true" />
+        <property name="locations">
+            <list>
+                <value>classpath:db/migration</value>
+            </list>
+        </property>
+    </bean>
     <!-- jpa(hibernate) configuration -->
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
         <property name="persistenceUnitName" value="myapp"/>

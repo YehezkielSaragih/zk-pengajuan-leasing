@@ -2,8 +2,10 @@ package com.fif.zk.viewmodel;
 
 import com.fif.zk.model.Creditor;
 import com.fif.zk.model.Loan;
+import com.fif.zk.model.LoanType;
 import com.fif.zk.service.CreditorService;
 import com.fif.zk.service.LoanService;
+import com.fif.zk.service.LoanTypeService;
 import org.springframework.stereotype.Component;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
@@ -23,12 +25,13 @@ public class LoanFormViewModel {
     // --- Data fields ---
     private Creditor selectedCreditor;
     private String loanName;
-    private String loanType;
+    private LoanType selectedLoanType;
     private Integer loanAmount;
     private Integer downPayment;
     private String status = "Pending"; // default
 
     private List<Creditor> creditors;
+    private List<LoanType> loanTypes;
 
     // --- Services ---
     @WireVariable("creditorServiceImpl")
@@ -37,6 +40,9 @@ public class LoanFormViewModel {
     @WireVariable("loanServiceImpl")
     private LoanService loanService;
 
+    @WireVariable("loanTypeServiceImpl")
+    private LoanTypeService loanTypeService;
+
     // --- Getters & Setters ---
     public Creditor getSelectedCreditor() { return selectedCreditor; }
     public void setSelectedCreditor(Creditor selectedCreditor) { this.selectedCreditor = selectedCreditor; }
@@ -44,8 +50,8 @@ public class LoanFormViewModel {
     public String getLoanName() { return loanName; }
     public void setLoanName(String loanName) { this.loanName = loanName; }
 
-    public String getLoanType() { return loanType; }
-    public void setLoanType(String loanType) { this.loanType = loanType; }
+    public LoanType getSelectedLoanType() { return selectedLoanType; }
+    public void setSelectedLoanType(LoanType selectedLoanType) { this.selectedLoanType = selectedLoanType; }
 
     public Integer getLoanAmount() { return loanAmount; }
     public void setLoanAmount(Integer loanAmount) { this.loanAmount = loanAmount; }
@@ -57,6 +63,7 @@ public class LoanFormViewModel {
     public void setStatus(String status) { this.status = status; }
 
     public List<Creditor> getCreditors() { return creditors; }
+    public List<LoanType> getLoanTypes() { return loanTypes; }
 
     // --- Init ---
     @Init
@@ -65,6 +72,8 @@ public class LoanFormViewModel {
                 .stream()
                 .filter(c -> c.getDeletedAt() == null)
                 .collect(Collectors.toList());
+
+        loanTypes = loanTypeService.getAllLoanTypes(); // fetch all loan types
     }
 
     // --- Commands ---
@@ -78,8 +87,8 @@ public class LoanFormViewModel {
             Clients.showNotification("Please enter a loan name!", "error", null, "top_right", 3000);
             return;
         }
-        if (loanType == null || loanType.isEmpty()) {
-            Clients.showNotification("Please enter a loan type!", "error", null, "top_right", 3000);
+        if (selectedLoanType == null) {
+            Clients.showNotification("Please select a loan type!", "error", null, "top_right", 3000);
             return;
         }
         if (downPayment == null) {
@@ -110,7 +119,7 @@ public class LoanFormViewModel {
         Loan loan = new Loan(
                 selectedCreditor,
                 loanName,
-                loanType,
+                selectedLoanType,
                 loanAmount,
                 downPayment,
                 status

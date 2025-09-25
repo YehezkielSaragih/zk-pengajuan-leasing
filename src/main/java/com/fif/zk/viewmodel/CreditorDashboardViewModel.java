@@ -152,7 +152,7 @@ public class CreditorDashboardViewModel {
                             l.getId(),
                             creditorDto.getName(),
                             l.getLoanName(),
-                            l.getLoanType(),
+                            l.getLoanType().getName(),
                             l.getLoanAmount(),
                             l.getDownPayment(),
                             l.getStatus()
