@@ -6,6 +6,7 @@ import com.fif.zk.model.Creditor;
 import com.fif.zk.model.Loan;
 import com.fif.zk.service.CreditorService;
 import com.fif.zk.service.LoanService;
+import org.hibernate.Hibernate;
 import org.zkoss.bind.annotation.*;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
@@ -148,11 +149,12 @@ public class CreditorDashboardViewModel {
             selectedLoans = loanService.getLoansByCreditorId(creditorDto.getId())
                     .stream()
                     .filter(l -> l.getDeletedAt() == null)
+                    .peek(l -> Hibernate.initialize(l.getLoanType())) // <-- inisialisasi sebelum dipakai
                     .map(l -> new LoanDashboardResponse(
                             l.getId(),
                             creditorDto.getName(),
                             l.getLoanName(),
-                            l.getLoanType().getName(),
+                            l.getLoanType().getName(), // aman, sudah di-init
                             l.getLoanAmount(),
                             l.getDownPayment(),
                             l.getStatus()
@@ -162,6 +164,7 @@ public class CreditorDashboardViewModel {
             showLoanModal = true;
         }
     }
+
 
     @Command
     @NotifyChange("showLoanModal")

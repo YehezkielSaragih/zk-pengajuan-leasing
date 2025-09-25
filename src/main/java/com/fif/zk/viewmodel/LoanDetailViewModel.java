@@ -5,6 +5,7 @@ import com.fif.zk.model.Creditor;
 import com.fif.zk.model.Loan;
 import com.fif.zk.service.CreditorService;
 import com.fif.zk.service.LoanService;
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Component;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
@@ -41,12 +42,15 @@ public class LoanDetailViewModel {
             Loan l = loanService.getLoanById(loanId);
 
             if (l != null) {
+                // Force load loanType sebelum session close
+                Hibernate.initialize(l.getLoanType());
+
                 Creditor c = creditorService.getCreditorById(l.getCreditor().getId());
 
                 loan = new LoanDetailResponse();
                 loan.setId(l.getId());
                 loan.setLoanName(l.getLoanName());
-                loan.setLoanType(l.getLoanType().getName());
+                loan.setLoanType(l.getLoanType().getName()); // aman, sudah di-initialize
                 loan.setLoanAmount(l.getLoanAmount());
                 loan.setDownPayment(l.getDownPayment());
                 loan.setStatus(l.getStatus());
@@ -54,6 +58,7 @@ public class LoanDetailViewModel {
             }
         }
     }
+
 
     // --- Commands ---
     @Command
