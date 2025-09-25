@@ -3,11 +3,12 @@ package com.fif.zk.service.implementation;
 import com.fif.zk.model.Loan;
 import com.fif.zk.repository.LoanRepository;
 import com.fif.zk.service.LoanService;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class LoanServiceImpl implements LoanService {
@@ -15,13 +16,17 @@ public class LoanServiceImpl implements LoanService {
     @Autowired
     private LoanRepository loanRepository;
 
-    @Override
+    @Transactional(readOnly = true)
     public List<Loan> getLoans() {
-        // filter yang tidak soft-deleted
-        return loanRepository.findAll()
-                .stream()
-                .filter(l -> l.getDeletedAt() == null)
-                .collect(Collectors.toList());
+        List<Loan> loans = loanRepository.findAll();
+
+        // Paksa load relasi yang dibutuhkan
+        loans.forEach(l -> {
+            Hibernate.initialize(l.getLoanType());
+            Hibernate.initialize(l.getCreditor());
+        });
+
+        return loans;
     }
 
     @Override
@@ -36,7 +41,7 @@ public class LoanServiceImpl implements LoanService {
 
     @Override
     public void updateLoan(Loan loan) {
-        loanRepository.save(loan); // di JPA, save = insert or update
+        loanRepository.save(loan);
     }
 
     @Override

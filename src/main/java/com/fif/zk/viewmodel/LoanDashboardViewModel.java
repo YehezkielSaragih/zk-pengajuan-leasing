@@ -4,6 +4,7 @@ import com.fif.zk.dto.LoanDashboardResponse;
 import com.fif.zk.model.Creditor;
 import com.fif.zk.service.CreditorService;
 import com.fif.zk.service.LoanService;
+import com.fif.zk.service.LoanTypeService;
 import org.springframework.stereotype.Component;
 import org.zkoss.bind.annotation.*;
 import org.zkoss.zk.ui.Executions;
@@ -39,9 +40,22 @@ public class LoanDashboardViewModel {
     @WireVariable("loanServiceImpl")
     private LoanService loanService;
 
+    @WireVariable("loanTypeServiceImpl")
+    private LoanTypeService loanTypeService;
+
+    // --- Data for dropdown ---
+    private List<String> loanTypeOptions;
+
     @Init
     public void init() {
         filteredLoans = loadDashboardItems();
+
+        // isi dropdown loan types dari DB + prepend "All Loan Type"
+        loanTypeOptions = loanTypeService.getAllLoanTypes().stream()
+                .map(lt -> lt.getName())
+                .collect(Collectors.toList());
+
+        loanTypeOptions.add(0, "All Loan Type");
     }
 
     @AfterCompose
@@ -50,6 +64,10 @@ public class LoanDashboardViewModel {
         if ("true".equals(success)) {
             Clients.showNotification("Loan saved successfully!", "info", null, "top_right", 3000);
         }
+    }
+
+    public List<String> getLoanTypeOptions() {
+        return loanTypeOptions;
     }
 
     // --- Getters & Setters ---
