@@ -8,9 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
+@Transactional
 public class LoanServiceImpl implements LoanService {
 
     @Autowired
@@ -18,9 +21,7 @@ public class LoanServiceImpl implements LoanService {
 
     @Transactional(readOnly = true)
     public List<Loan> getLoans() {
-        List<Loan> loans = loanRepository.findAll();
-
-        // Paksa load relasi yang dibutuhkan
+        List<Loan> loans = loanRepository.findByDeletedAtIsNull();
         loans.forEach(l -> {
             Hibernate.initialize(l.getLoanType());
             Hibernate.initialize(l.getCreditor());
@@ -32,7 +33,9 @@ public class LoanServiceImpl implements LoanService {
     @Override
     @Transactional(readOnly = true)
     public Loan getLoanById(int id) {
-        Loan loan = loanRepository.findById(id).orElse(null);
+        Loan loan = loanRepository.findById(id)
+                .filter(l -> l.getDeletedAt() == null)
+                .orElse(null);
         if (loan != null) {
             Hibernate.initialize(loan.getLoanType());
             Hibernate.initialize(loan.getCreditor());
@@ -40,22 +43,25 @@ public class LoanServiceImpl implements LoanService {
         return loan;
     }
 
-
     @Override
     public void addLoan(Loan loan) {
+        loan.setCreatedAt(LocalDateTime.now());
+        loan.setUpdatedAt(LocalDateTime.now());
         loanRepository.save(loan);
     }
 
     @Override
     public void updateLoan(Loan loan) {
+        loan.setUpdatedAt(LocalDateTime.now());
         loanRepository.save(loan);
     }
 
     @Override
     public void deleteLoan(int id) {
         loanRepository.findById(id).ifPresent(l -> {
-            l.setDeletedAt(java.time.LocalDateTime.now());
-            loanRepository.save(l); // soft delete
+            l.setUpdatedAt(LocalDateTime.now());
+            l.setDeletedAt(LocalDateTime.now());
+            loanRepository.save(l);
         });
     }
 
@@ -63,8 +69,6 @@ public class LoanServiceImpl implements LoanService {
     @Transactional(readOnly = true)
     public List<Loan> getLoansByCreditorId(int creditorId) {
         List<Loan> loans = loanRepository.findByCreditorIdAndDeletedAtIsNull(creditorId);
-
-        // paksa initialize masih di dalam transactional context
         loans.forEach(l -> {
             Hibernate.initialize(l.getLoanType());
             Hibernate.initialize(l.getCreditor());

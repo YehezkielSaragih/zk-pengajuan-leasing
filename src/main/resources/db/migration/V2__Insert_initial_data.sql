@@ -52,7 +52,7 @@ VALUES (
     (SELECT id FROM loan_types WHERE name = 'Electronic'),
     10000000,
     ROUND(10000000 * 0.3),
-    'PENDING',
+    'APPROVED',
     NOW(),
     NOW()
 );

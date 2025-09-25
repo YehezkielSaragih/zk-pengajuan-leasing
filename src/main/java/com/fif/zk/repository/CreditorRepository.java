@@ -8,5 +8,6 @@ import java.util.List;
 
 @Repository
 public interface CreditorRepository extends JpaRepository<Creditor, Integer> {
+    Creditor findByIdAndDeletedAtIsNull(Integer id);
     List<Creditor> findByDeletedAtIsNull();
 }

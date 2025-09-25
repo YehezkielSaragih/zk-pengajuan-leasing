@@ -157,7 +157,7 @@ public class CreditorDashboardViewModel {
             selectedLoans = loanService.getLoansByCreditorId(creditorDto.getId())
                     .stream()
                     .filter(l -> l.getDeletedAt() == null)
-                    .peek(l -> Hibernate.initialize(l.getLoanType())) // <-- inisialisasi sebelum dipakai
+                    .peek(l -> Hibernate.initialize(l.getLoanType()))
                     .map(l -> new LoanDashboardResponse(
                             l.getId(),
                             creditorDto.getName(),
