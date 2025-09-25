@@ -32,7 +32,7 @@ public class RegisterViewModel {
     @WireVariable("userServiceImpl")
     private UserService userService;
 
-    @WireVariable("roleServiceImpl")
+    @WireVariable("userRoleServiceImpl")
     private UserRoleService userRoleService;
 
     // --- Getters & Setters ---
