@@ -39,16 +39,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/zkau/**",   // penting untuk ZK Ajax
                         "/zkres/**"   // penting untuk ZK resources (CSS, JS bawaan ZK)
                 ).permitAll()
-                // USER & ADMIN sama-sama boleh akses creditor
-                .antMatchers(
-                        "/pages/layout.zul?page=creditor-dashboard.zul",
-                        "/pages/layout.zul?page=creditor-form.zul"
-                ).hasAnyRole("USER", "ADMIN")
                 // ADMIN akses penuh ke loan-dashboard & loan-form
                 .antMatchers(
                         "/pages/layout.zul?page=loan-dashboard.zul",
                         "/pages/layout.zul?page=loan-form.zul"
                 ).hasRole("ADMIN")
+                // USER & ADMIN sama-sama boleh akses creditor
+                .antMatchers(
+                        "/pages/layout.zul?page=creditor-dashboard.zul",
+                        "/pages/layout.zul?page=creditor-form.zul"
+                ).hasAnyRole("USER", "ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
